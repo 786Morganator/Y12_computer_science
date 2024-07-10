@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Interactions and ODBC Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .quiz-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .correct {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .incorrect {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Database Interactions and ODBC Quiz</h1>
+        <form id="quiz-form">
+            <!-- Questions 1-15 -->
+            <!-- Question 1 -->
+            <div class="question">
+                <p>1. What is the primary purpose of database interactions in modern software?</p>
+                <div class="options">
+                    <input type="radio" name="q1" value="a"> a) To make applications faster<br>
+                    <input type="radio" name="q1" value="b"> b) To store, retrieve, and manage vast amounts of information<br>
+                    <input type="radio" name="q1" value="c"> c) To create visually appealing user interfaces<br>
+                    <input type="radio" name="q1" value="d"> d) To reduce server costs
+                </div>
+                <div id="feedback1" class="feedback"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <p>2. What does application integration refer to in the context of databases?</p>
+                <div class="options">
+                    <input type="radio" name="q2" value="a"> a) Merging different software applications into one<br>
+                    <input type="radio" name="q2" value="b"> b) Installing databases on multiple servers<br>
+                    <input type="radio" name="q2" value="c"> c) Creating a smooth and efficient flow of data between applications and databases<br>
+                    <input type="radio" name="q2" value="d"> d) Developing new database management systems
+                </div>
+                <div id="feedback2" class="feedback"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <p>3. What is a key benefit of effective data exchange?</p>
+                <div class="options">
+                    <input type="radio" name="q3" value="a"> a) Reduced server load<br>
+                    <input type="radio" name="q3" value="b"> b) Faster internet speeds<br>
+                    <input type="radio" name="q3" value="c"> c) Enhanced collaboration between different teams or organizations<br>
+                    <input type="radio" name="q3" value="d"> d) Simplified database structures
+                </div>
+                <div id="feedback3" class="feedback"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <p>4. What role do web services play in modern applications?</p>
+                <div class="options">
+                    <input type="radio" name="q4" value="a"> a) They provide user interfaces<br>
+                    <input type="radio" name="q4" value="b"> b) They allow applications to access data and functionality from remote servers over the internet<br>
+                    <input type="radio" name="q4" value="c"> c) They manage local file systems<br>
+                    <input type="radio" name="q4" value="d"> d) They optimize database performance
+                </div>
+                <div id="feedback4" class="feedback"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <p>5. What is the primary function of reporting tools in database interactions?</p>
+                <div class="options">
+                    <input type="radio" name="q5" value="a"> a) To create new databases<br>
+                    <input type="radio" name="q5" value="b"> b) To optimize SQL queries<br>
+                    <input type="radio" name="q5" value="c"> c) To extract valuable information from databases and present it in a user-friendly way<br>
+                    <input type="radio" name="q5" value="d"> d) To manage user permissions
+                </div>
+                <div id="feedback5" class="feedback"></div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <p>6. What is the main purpose of ODBC (Open Database Connectivity)?</p>
+                <div class="options">
+                    <input type="radio" name="q6" value="a"> a) To create new databases<br>
+                    <input type="radio" name="q6" value="b"> b) To provide a common language for applications to interact with various databases<br>
+                    <input type="radio" name="q6" value="c"> c) To encrypt database connections<br>
+                    <input type="radio" name="q6" value="d"> d) To optimize database performance
+                </div>
+                <div id="feedback6" class="feedback"></div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <p>7. Which of the following is NOT a benefit of using ODBC?</p>
+                <div class="options">
+                    <input type="radio" name="q7" value="a"> a) Database independence<br>
+                    <input type="radio" name="q7" value="b"> b) Flexibility in switching between database systems<br>
+                    <input type="radio" name="q7" value="c"> c) Automatic database optimization<br>
+                    <input type="radio" name="q7" value="d"> d) Wider reach for data sources
+                </div>
+                <div id="feedback7" class="feedback"></div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <p>8. What is the role of the ODBC Driver Manager?</p>
+                <div class="options">
+                    <input type="radio" name="q8" value="a"> a) To create database tables<br>
+                    <input type="radio" name="q8" value="b"> b) To execute SQL queries<br>
+                    <input type="radio" name="q8" value="c"> c) To act as a dispatcher, determining which database driver to use<br>
+                    <input type="radio" name="q8" value="d"> d) To manage user authentication
+                </div>
+                <div id="feedback8" class="feedback"></div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question">
+                <p>9. What is the primary function of an ODBC Driver?</p>
+                <div class="options">
+                    <input type="radio" name="q9" value="a"> a) To create backups of the database<br>
+                    <input type="radio" name="q9" value="b"> b) To translate ODBC instructions into a language the specific database can understand<br>
+                    <input type="radio" name="q9" value="c"> c) To design user interfaces<br>
+                    <input type="radio" name="q9" value="d"> d) To manage network connections
+                </div>
+                <div id="feedback9" class="feedback"></div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question">
+                <p>10. Which programming language is NOT mentioned in the article as an example for ODBC usage?</p>
+                <div class="options">
+                    <input type="radio" name="q10" value="a"> a) Python<br>
+                    <input type="radio" name="q10" value="b"> b) Java<br>
+                    <input type="radio" name="q10" value="c"> c) C#<br>
+                    <input type="radio" name="q10" value="d"> d) JavaScript
+                </div>
+                <div id="feedback10" class="feedback"></div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question">
+                <p>11. What is SQL primarily used for in database interactions?</p>
+                <div class="options">
+                    <input type="radio" name="q11" value="a"> a) To design user interfaces<br>
+                    <input type="radio" name="q11" value="b"> b) To manage network protocols<br>
+                    <input type="radio" name="q11" value="c"> c) To retrieve and manage data in databases<br>
+                    <input type="radio" name="q11" value="d"> d) To create graphics for applications
+                </div>
+                <div id="feedback11" class="feedback"></div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question">
+                <p>12. What is the main advantage of using ORM (Object-Relational Mapping) frameworks?</p>
+                <div class="options">
+                    <input type="radio" name="q12" value="a"> a) They provide faster database connections<br>
+                    <input type="radio" name="q12" value="b"> b) They offer better data encryption<br>
+                    <input type="radio" name="q12" value="c"> c) They simplify database interactions by using an object-oriented approach<br>
+                    <input type="radio" name="q12" value="d"> d) They automatically optimize database performance
+                </div>
+                <div id="feedback12" class="feedback"></div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question">
+                <p>13. Which of the following is NOT mentioned as a benefit of using ORMs?</p>
+                <div class="options">
+                    <input type="radio" name="q13" value="a"> a) Simplified development<br>
+                    <input type="radio" name="q13" value="b"> b) Code reusability<br>
+                    <input type="radio" name="q13" value="c"> c) Improved productivity<br>
+                    <input type="radio" name="q13" value="d"> d) Automatic database scaling
+                </div>
+                <div id="feedback13" class="feedback"></div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question">
+                <p>14. Which of the following is NOT listed as a popular ORM framework in the article?</p>
+                <div class="options">
+                    <input type="radio" name="q14" value="a"> a) Hibernate<br>
+                    <input type="radio" name="q14" value="b"> b) Django ORM<br>
+                    <input type="radio" name="q14" value="c"> c) Entity Framework<br>
+                    <input type="radio" name="q14" value="d"> d) Sequelize
+                </div>
+                <div id="feedback14" class="feedback"></div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question">
+                <p>15. According to the article, what is the significance of database interactions in modern software?</p>
+                <div class="options">
+                    <input type="radio" name="q15" value="a"> a) They are optional features for advanced users<br>
+                    <input type="radio" name="q15" value="b"> b) They are primarily used for data visualization<br>
+                    <input type="radio" name="q15" value="c"> c) They are the lifeblood of modern software, empowering applications with data access and manipulation<br>
+                    <input type="radio" name="q15" value="d"> d) They are only important for large-scale enterprise applications
+                </div>
+                <div id="feedback15" class="feedback"></div>
+            </div>
+
+            <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+   <script>
+        const answers = {
+            q1: { answer: 'b', feedback: "Correct! Database interactions primarily serve to store, retrieve, and manage vast amounts of information in modern software." },
+            q2: { answer: 'c', feedback: "That's right! Application integration refers to creating a smooth and efficient flow of data between applications and databases." },
+            q3: { answer: 'c', feedback: "Correct! Enhanced collaboration between different teams or organizations is a key benefit of effective data exchange." },
+            q4: { answer: 'b', feedback: "Exactly! Web services allow applications to access data and functionality from remote servers over the internet." },
+            q5: { answer: 'c', feedback: "That's correct! Reporting tools extract valuable information from databases and present it in a user-friendly way." },
+            q6: { answer: 'b', feedback: "Right! ODBC provides a common language for applications to interact with various databases." },
+            q7: { answer: 'c', feedback: "Correct! Automatic database optimization is not a primary benefit of ODBC." },
+            q8: { answer: 'c', feedback: "That's right! The ODBC Driver Manager acts as a dispatcher, determining which database driver to use." },
+            q9: { answer: 'b', feedback: "Exactly! The ODBC Driver translates ODBC instructions into a language the specific database can understand." },
+            q10: { answer: 'd', feedback: "Correct! JavaScript is not mentioned in the article as an example for ODBC usage." },
+            q11: { answer: 'c', feedback: "Right! SQL is primarily used to retrieve and manage data in databases." },
+            q12: { answer: 'c', feedback: "That's correct! ORM frameworks simplify database interactions by using an object-oriented approach." },
+            q13: { answer: 'd', feedback: "Exactly! Automatic database scaling is not mentioned as a benefit of using ORMs." },
+            q14: { answer: 'd', feedback: "Right! Sequelize is not listed as a popular ORM framework in the article." },
+            q15: { answer: 'c', feedback: "Correct! Database interactions are described as the lifeblood of modern software, empowering applications with data access and manipulation." }
+        };
+
+        function submitQuiz() {
+            let score = 0;
+            for (let i = 1; i <= 15; i++) {
+                const question = document.querySelector(`input[name="q${i}"]:checked`);
+                const feedbackElement = document.getElementById(`feedback${i}`);
+                
+                if (question) {
+                    if (question.value === answers[`q${i}`].answer) {
+                        score++;
+                        feedbackElement.textContent = answers[`q${i}`].feedback;
+                        feedbackElement.className = 'feedback correct';
+                    } else {
+                        feedbackElement.textContent = `Incorrect. ${answers[`q${i}`].feedback}`;
+                        feedbackElement.className = 'feedback incorrect';
+                    }
+                } else {
+                    feedbackElement.textContent = 'Please select an answer.';
+                    feedbackElement.className = 'feedback';
+                }
+            }
+            
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = `You scored ${score} out of 15.`;
+            
+            // Scroll to the top of the page
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
