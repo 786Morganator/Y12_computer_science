@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLite Activity: Keys and Relationships</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #1890ff;
+        }
+        .warning {
+            background-color: #fff0f0;
+            border-left: 4px solid #ff0000;
+            padding: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .task {
+            margin-bottom: 30px;
+            border-left: 4px solid #1890ff;
+            padding-left: 20px;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>SQLite Activity: Keys and Relationships</h1>
+
+    <div class="warning">
+        <h2>Important: Committing Changes in DB Browser for SQLite</h2>
+        <ul>
+            <li>After executing each SQL statement or group of related statements, you must manually save your changes.</li>
+            <li>To save changes, click the "Write Changes" button (floppy disk icon) in the toolbar, or go to "File" > "Write Changes" in the top menu.</li>
+            <li>If you don't write changes, your work will only exist in memory and will be lost if you close the application.</li>
+            <li>Get in the habit of writing changes after each major step in this activity.</li>
+        </ul>
+    </div>
+
+    <h2>Objective</h2>
+    <p>In this activity, you will create a small database for a library system using SQLite and DB Browser. You'll practice implementing primary keys, foreign keys, and relationships between tables.</p>
+
+    <h2>Instructions</h2>
+    <div class="task">
+        <h3>1. Create a new database</h3>
+        <ol>
+            <li>Open DB Browser for SQLite</li>
+            <li>Click "New Database" in the toolbar (icon looks like a blank page) or go to File > New Database</li>
+            <li>Navigate to your desired save location</li>
+            <li>Name your database file "library.db"</li>
+            <li>Click "Save"</li>
+            <li>If prompted to create a table, click "Cancel"</li>
+        </ol>
+    </div>
+
+    <div class="task">
+        <h3>2. Create tables</h3>
+        <p>For each table:</p>
+        <ol>
+            <li>Click on the "Execute SQL" tab</li>
+            <li>Paste the CREATE TABLE statement into the SQL editor</li>
+            <li>Click the "Execute SQL" button (play icon)</li>
+            <li>Click the "Write Changes" button (floppy disk icon) in the toolbar</li>
+        </ol>
+
+        <h4>Authors Table</h4>
+        <pre><code>CREATE TABLE Authors (
+    AuthorID INTEGER PRIMARY KEY AUTOINCREMENT,
+    FirstName TEXT NOT NULL,
+    LastName TEXT NOT NULL
+);</code></pre>
+
+        <h4>Books Table</h4>
+        <pre><code>CREATE TABLE Books (
+    BookID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Title TEXT NOT NULL,
+    PublicationYear INTEGER,
+    AuthorID INTEGER,
+    FOREIGN KEY (AuthorID) REFERENCES Authors(AuthorID)
+);</code></pre>
+
+        <h4>Patrons Table</h4>
+        <pre><code>CREATE TABLE Patrons (
+    PatronID INTEGER PRIMARY KEY AUTOINCREMENT,
+    FirstName TEXT NOT NULL,
+    LastName TEXT NOT NULL,
+    Email TEXT UNIQUE
+);</code></pre>
+
+        <h4>Loans Table</h4>
+        <pre><code>CREATE TABLE Loans (
+    LoanID INTEGER PRIMARY KEY AUTOINCREMENT,
+    BookID INTEGER,
+    PatronID INTEGER,
+    LoanDate DATE NOT NULL,
+    ReturnDate DATE,
+    FOREIGN KEY (BookID) REFERENCES Books(BookID),
+    FOREIGN KEY (PatronID) REFERENCES Patrons(PatronID)
+);</code></pre>
+    </div>
+
+    <h2>Tasks</h2>
+    <div class="task">
+        <h3>1. Insert sample data</h3>
+        <ol>
+            <li>Click on the "Execute SQL" tab</li>
+            <li>Write INSERT statements to add at least 3 records to each table</li>
+            <li>Click the "Execute SQL" button after each INSERT statement or group of statements</li>
+            <li>After inserting data into each table, click the "Write Changes" button</li>
+        </ol>
+    </div>
+
+    <div class="task">
+        <h3>2. Write and execute queries</h3>
+        <ol>
+            <li>Click on the "Execute SQL" tab</li>
+            <li>Write a query to display all books with their authors' names</li>
+            <li>Click the "Execute SQL" button and view the results</li>
+            <li>Write a query to show all active loans (where ReturnDate is NULL) with book titles and patron names</li>
+            <li>Click the "Execute SQL" button and view the results</li>
+        </ol>
+    </div>
+
+    <div class="task">
+        <h3>3. Create an index</h3>
+        <p>An index helps to speed up searches on a specific column. We'll create an index on the Email column in the Patrons table.</p>
+        <ol>
+            <li>Click on the "Execute SQL" tab</li>
+            <li>We'll use the following SQL command to create the index:
+                <pre><code>CREATE INDEX idx_patron_email ON Patrons(Email);</code></pre>
+            </li>
+            <li>Let's break down this command:
+                <ul>
+                    <li><code>CREATE INDEX</code>: This tells SQLite we want to create a new index</li>
+                    <li><code>idx_patron_email</code>: This is the name we're giving to our index. It's a good practice to use a descriptive name</li>
+                    <li><code>ON Patrons(Email)</code>: This specifies that the index is on the Email column of the Patrons table</li>
+                </ul>
+            </li>
+            <li>Copy and paste the CREATE INDEX statement into the SQL editor</li>
+            <li>Click the "Execute SQL" button</li>
+            <li>Click the "Write Changes" button to save this modification to your database</li>
+            <li>To verify the index was created:
+                <ul>
+                    <li>Go to the "Browse Data" tab</li>
+                    <li>Select "Patrons" from the table dropdown</li>
+                    <li>Click on the "Indexes" sub-tab</li>
+                    <li>You should see your new index listed</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <div class="task">
+        <h3>4. Add a CHECK constraint</h3>
+        <p>A CHECK constraint allows us to enforce a condition on the values in a column. We'll add a constraint to ensure the PublicationYear in the Books table is not in the future.</p>
+        <ol>
+            <li>Click on the "Execute SQL" tab</li>
+            <li>We'll use the following SQL command to add the constraint:
+                <pre><code>ALTER TABLE Books
+ADD CONSTRAINT check_publication_year
+CHECK (PublicationYear <= strftime('%Y', 'now'));</code></pre>
+            </li>
+            <li>Let's break down this command:
+                <ul>
+                    <li><code>ALTER TABLE Books</code>: This tells SQLite we want to modify the Books table</li>
+                    <li><code>ADD CONSTRAINT check_publication_year</code>: We're adding a new constraint named "check_publication_year"</li>
+                    <li><code>CHECK (PublicationYear <= strftime('%Y', 'now'))</code>: This is the actual check. It ensures the PublicationYear is less than or equal to the current year</li>
+                    <li><code>strftime('%Y', 'now')</code> is a SQLite function that returns the current year</li>
+                </ul>
+            </li>
+            <li>Copy and paste the entire ALTER TABLE statement into the SQL editor</li>
+            <li>Click the "Execute SQL" button</li>
+            <li>Click the "Write Changes" button to save this modification to your database</li>
+            <li>To test the constraint, try inserting a book with a future year:
+                <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
+VALUES ('Future Book', 2099, 1);</code></pre>
+                This should fail due to the CHECK constraint.
+            </li>
+            <li>Now try inserting a book with a valid year:
+                <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
+VALUES ('Current Book', 2023, 1);</code></pre>
+                This should succeed.
+            </li>
+        </ol>
+    </div>
+
+    <h2>Bonus Challenge</h2>
+    <p>Implement a many-to-many relationship between Books and Authors (for books with multiple authors). You'll need to create a junction table and modify your queries accordingly. Remember to write changes after creating the new table and inserting data.</p>
+
+    <h2>Submission</h2>
+    <p>When you're finished, save your SQLite database file and submit it along with a text file containing your queries for tasks 2-4.</p>
+
+    <div class="warning">
+        <h3>Final Reminder:</h3>
+        <ul>
+            <li>Always use the "Write Changes" feature after making significant changes to your database.</li>
+            <li>If you make a mistake, you can use the "Revert Changes" option to undo uncommitted changes.</li>
+            <li>Before closing DB Browser, make sure all your changes are committed by clicking "Write Changes" one last time.</li>
+        </ul>
+    </div>
+</body>
+</html>

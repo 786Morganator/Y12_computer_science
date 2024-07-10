@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Anomalies in Industry Databases</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center; 
+            margin-bottom: 30px;
+        }
+        .scenario-container {
+            margin-bottom: 40px;
+        }
+        .example, .impact, .prevention, .connection {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 5px solid #3498db;
+        }
+        .example h3, .impact h3, .prevention h3, .connection h3 {
+            margin-top: 0;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .nav button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Data Anomalies in Databases</h1>
+
+    <div class="nav">
+        <button onclick="showScenario('intro')">Introduction</button>
+        <button onclick="showScenario('insert')">Insert Anomaly</button>
+        <button onclick="showScenario('update')">Update Anomaly</button>
+        <button onclick="showScenario('delete')">Delete Anomaly</button>
+        <button onclick="showScenario('null')">Null Fields</button>
+    </div>
+
+    <div id="intro" class="scenario-container">
+        <h2>Introduction</h2>
+        <p>Data anomalies are inconsistencies or errors that can occur in a database, often as a result of redundant data and improper table design.  These anomalies can make it difficult to maintain data integrity, leading to inaccurate information and difficulties in performing basic database operations. The three main types of anomalies are:</p>
+        <ul>
+            <li><strong>Insert Anomaly:</strong> This occurs when it's difficult or impossible to add a new record to the database without simultaneously adding unrelated or irrelevant data. For example, imagine trying to add a new book to a library database, but you can't because there are no borrowers registered yet. The book information is held hostage by the absence of borrower information.</li>
+            <li><strong>Update Anomaly:</strong> This happens when updating a single piece of information requires multiple updates across different records. For example, if a student changes their address, and this information is stored redundantly in multiple tables (enrollment, library, etc.), each instance needs to be updated separately, creating the possibility of inconsistencies.</li>
+            <li><strong>Delete Anomaly:</strong> This arises when deleting a record results in the unintentional loss of other, unrelated information. Imagine deleting a customer from a database, but this action also removes the product they bought because the product information was solely tied to the customer record. </li>
+        </ul>
+        <p>These anomalies highlight the importance of good database design principles, particularly normalization. Normalization aims to organize data efficiently, minimizing redundancy, and ensuring that each piece of information has a single source of truth. This leads to a more robust, consistent, and easier-to-maintain database.
+        </p>
+    </div>
+
+    <div id="insert" class="scenario-container" style="display:none;">
+        <h2>Insert Anomaly</h2>
+        <div class="example">
+            <h3>Scenario: TechEd University Course Management System</h3>
+            <p>TechEd University stores course information, professor details, and student enrollment data in a single table:</p>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>CourseID</th>
+                        <th>CourseName</th>
+                        <th>ProfessorID</th>
+                        <th>ProfessorName</th>
+                        <th>Department</th>
+                        <th>StudentID</th>
+                        <th>StudentName</th>
+                        <th>EnrollmentDate</th>
+                        <th>Grade</th>
+                    </tr>
+                    <tr>
+                        <td>CSCI3301</td>
+                        <td>Advanced Python Programming</td>
+                        <td>PROF201</td>
+                        <td>Dr. Ava Turing</td>
+                        <td>Computer Science</td>
+                        <td>STU10045</td>
+                        <td>Zoe Chen</td>
+                        <td>2023-09-01</td>
+                        <td>A</td>
+                    </tr>
+                    <tr>
+                        <td>CSCI3301</td>
+                        <td>Advanced Python Programming</td>
+                        <td>PROF201</td>
+                        <td>Dr. Ava Turing</td>
+                        <td>Computer Science</td>
+                        <td>STU10078</td>
+                        <td>Marcus Johnson</td>
+                        <td>2023-09-02</td>
+                        <td>B+</td>
+                    </tr>
+                </table>
+            </div>
+            <p><strong>Problem:</strong> TechEd wants to introduce a new course, "CSCI4501: Quantum Computing Fundamentals," to their system. However, they cannot add this course until at least one student enrolls, as the table structure requires student information (StudentID, StudentName, EnrollmentDate, Grade) to create a new entry. This illustrates a classic insert anomaly, where adding data about a new course is dependent on having data about student enrollment.</p>
+        </div>
+        <div class="impact">
+            <h3>Consequences:</h3>
+            <ul>
+                <li><strong>Delayed Course Management:</strong>  The university cannot add new courses to their system until students are enrolled, limiting their ability to plan ahead or advertise courses in advance.</li>
+                <li><strong>Data Incompleteness:</strong> The database cannot store complete information about a course until a student is enrolled, potentially leading to inaccurate reporting or analysis of course offerings.</li>
+                <li><strong>Data Redundancy:</strong> Basic course information like CourseName and Department will be repeated for each student enrollment, wasting storage space and increasing the risk of inconsistencies.</li> 
+            </ul>
+        </div>
+        <div class="prevention">
+            <h3>Solution: Database Normalization</h3>
+            <p>To resolve the insert anomaly, TechEd should normalize their database into multiple, related tables.  A common approach is to create tables for Courses, Professors, Students, and Enrollments:</p>
+            <ul>
+                <li><strong>Courses:</strong> (<code>CourseID</code>, <code>CourseName</code>, <code>Department</code>) - Stores basic information about each course.</li>
+                <li><strong>Professors:</strong> (<code>ProfessorID</code>, <code>ProfessorName</code>) - Holds information about professors.</li>
+                <li><strong>Students:</strong> (<code>StudentID</code>, <code>StudentName</code>) - Maintains student data. </li>
+                <li><strong>Enrollments:</strong> (<code>CourseID</code>, <code>StudentID</code>, <code>ProfessorID</code>, <code>EnrollmentDate</code>, <code>Grade</code>) - Represents the relationship between courses, students, and professors.</li>
+            </ul>
+            <p>This normalized structure eliminates data redundancy and allows for independent management of courses, professors, and students. Now, TechEd can add a new course to the <code>Courses</code> table without needing any corresponding student enrollment in the <code>Enrollments</code> table.</p>
+        </div>
+    </div>
+
+    <div id="update" class="scenario-container" style="display:none;">
+        <h2>Update Anomaly</h2>
+        <div class="example">
+            <h3>Scenario: MediCare Hospital Patient Management System</h3>
+            <p>MediCare Hospital maintains patient admission records and doctor assignments in a single table:</p>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>PatientID</th>
+                        <th>PatientName</th>
+                        <th>AdmissionDate</th>
+                        <th>DoctorID</th>
+                        <th>DoctorName</th>
+                        <th>DoctorSpecialty</th>
+                        <th>DoctorContact</th>
+                        <th>Ward</th>
+                        <th>Treatment</th>
+                    </tr>
+                    <tr>
+                        <td>PAT5678</td>
+                        <td>Olivia Martinez</td>
+                        <td>2023-06-15</td>
+                        <td>DOC789</td>
+                        <td>Dr. Ethan Cardoso</td>
+                        <td>Cardiology</td>
+                        <td>555-7890</td>
+                        <td>Cardiac Care Unit</td>
+                        <td>Beta Blockers</td>
+                    </tr>
+                    <tr>
+                        <td>PAT5692</td>
+                        <td>Liam Thompson</td>
+                        <td>2023-06-16</td>
+                        <td>DOC789</td>
+                        <td>Dr. Ethan Cardoso</td>
+                        <td>Cardiology</td>
+                        <td>555-7890</td>
+                        <td>ICU</td>
+                        <td>Angioplasty</td>
+                    </tr>
+                </table>
+            </div>
+            <p><strong>Problem:</strong> Dr. Cardoso's contact number has changed. In this structure, the contact information (<code>DoctorContact</code>) is repeated for each patient Dr. Cardoso attends.  To update the number, MediCare must change it in every single record where Dr. Cardoso is listed. This illustrates an update anomaly. A single change (Dr. Cardoso's phone number) necessitates multiple updates, increasing the risk of errors and inconsistencies. </p>
+        </div>
+        <div class="impact">
+            <h3>Consequences:</h3>
+            <ul>
+                <li><strong>Data Inconsistency:</strong> Failing to update all instances of Dr. Cardoso's contact information will lead to inconsistent data within the system. The hospital risks contacting the wrong number, potentially delaying critical communication. </li>
+                <li><strong>Increased Workload:</strong> Updating multiple records for a single change in information is inefficient and time-consuming for hospital staff. This inefficiency can lead to backlogs and errors, especially in a busy healthcare setting.</li>
+                <li><strong>Data Integrity Issues:</strong> Multiple, manual updates heighten the probability of typographical errors or omissions, compromising the accuracy and reliability of the data. </li>
+            </ul>
+        </div>
+        <div class="prevention">
+            <h3>Solution: Database Normalization</h3>
+            <p>Normalizing this table structure can resolve the update anomaly. MediCare can create separate tables for patients, doctors, and admissions:</p>
+            <ul>
+                <li><strong>Patients:</strong> (<code>PatientID</code>, <code>PatientName</code>) - Stores basic patient data. </li>
+                <li><strong>Doctors:</strong> (<code>DoctorID</code>, <code>DoctorName</code>, <code>DoctorSpecialty</code>, <code>DoctorContact</code>) - Holds information specific to doctors. </li>
+                <li><strong>Admissions:</strong> (<code>AdmissionID</code>, <code>PatientID</code>, <code>DoctorID</code>, <code>AdmissionDate</code>, <code>Ward</code>, <code>Treatment</code>) - Links patients to their respective doctors and admission details. </li>
+            </ul>
+            <p>With this structure, Dr. Cardoso's contact information is stored only once in the <code>Doctors</code> table.  Updating their contact information becomes a single operation, ensuring consistency across the database and significantly reducing the risk of errors.
+            </p>
+        </div>
+    </div>
+
+    <div id="delete" class="scenario-container" style="display:none;">
+        <h2>Delete Anomaly</h2>
+        <div class="example">
+            <h3>Scenario: GadgetWorld E-commerce Order Management System</h3>
+            <p>GadgetWorld manages its orders, product details, and customer information within a single table:</p>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>OrderID</th>
+                        <th>OrderDate</th>
+                        <th>CustomerID</th>
+                        <th>CustomerName</th>
+                        <th>CustomerEmail</th>
+                        <th>ProductID</th>
+                        <th>ProductName</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <tr>
+                        <td>ORD8901</td>
+                        <td>2023-05-01</td>
+                        <td>CUST456</td>
+                        <td>Sophia Lee</td>
+                        <td>sophia@email.com</td>
+                        <td>PROD789</td>
+                        <td>QuantumX Smartphone</td>
+                        <td>Electronics</td>
+                        <td>799.99</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>ORD8915</td>
+                        <td>2023-05-02</td>
+                        <td>CUST472</td>
+                        <td>Noah Garcia</td>
+                        <td>noah@email.com</td>
+                        <td>PROD789</td>
+                        <td>QuantumX Smartphone</td>
+                        <td>Electronics</td>
+                        <td>799.99</td>
+                        <td>1</td>
+                    </tr>
+                </table>
+            </div>
+            <p><strong>Problem:</strong>  GadgetWorld decides to discontinue the "QuantumX Smartphone." As part of their data cleanup, they delete all orders associated with the product. However, because the product information (<code>ProductName</code>, <code>Category</code>, <code>Price</code>) is stored in the same table as the order details, deleting the orders also eliminates all records of the "QuantumX Smartphone" from the system.  This is a delete anomaly.  Deleting an order should not lead to the loss of information about the product itself.</p>
+        </div>
+        <div class="impact">
+            <h3>Consequences:</h3>
+            <ul>
+                <li><strong>Loss of Historical Data: </strong> Deleting orders in this manner wipes out valuable historical data about the discontinued product. GadgetWorld loses the ability to analyze past sales trends for the "QuantumX Smartphone," hindering their ability to make informed decisions about future products or marketing strategies. </li>
+                <li><strong>Inventory Management Issues: </strong> Without a record of the "QuantumX Smartphone," GadgetWorld might have difficulty tracking any remaining inventory, managing returns, or providing customer support for the product in the future.</li>
+                <li><strong>Inaccurate Reporting:</strong> Deleting this product information will lead to incomplete and potentially misleading sales reports and analyses.  GadgetWorld won't have an accurate picture of their historical product performance.</li>
+            </ul>
+        </div>
+        <div class="prevention">
+            <h3>Solution: Database Normalization</h3>
+            <p>To prevent delete anomalies, GadgetWorld should normalize their database by creating separate tables for Orders, Products, and Customers: </p>
+            <ul>
+                <li><strong>Orders:</strong> (<code>OrderID</code>, <code>OrderDate</code>, <code>CustomerID</code>, <code>ProductID</code>, <code>Quantity</code>) - Records order details and links to the customer and product involved.</li>
+                <li><strong>Products: </strong>(<code>ProductID</code>, <code>ProductName</code>, <code>Category</code>, <code>Price</code>) - Stores information about each product.</li>
+                <li><strong>Customers: </strong> (<code>CustomerID</code>, <code>CustomerName</code>, <code>CustomerEmail</code>) - Holds data specific to customers. </li>
+            </ul>
+            <p>By separating the data in this way, deleting an order record will only remove the order information.  The product information in the <code>Products</code> table remains intact, preserving GadgetWorld's ability to track historical product data even after a product is discontinued or all related orders are deleted.</p>
+        </div>
+    </div>
+
+    <div id="null" class="scenario-container" style="display:none;">
+        <h2>Problems with Null Fields</h2>
+        <div class="example">
+            <h3>Why Null Fields are Problematic</h3>
+            <p>A null field in a database represents a missing or unknown value. While nulls have their place in database design, their overuse or improper handling can introduce a range of problems:</p>
+            <ul>
+                <li><strong>Ambiguity:</strong> Nulls lack specific meaning. A null could mean the data is unknown, not applicable, or hasn't been collected yet. This ambiguity makes it hard to interpret the data accurately. 
+                    <br><strong>Example:</strong> A null in a "Date of Birth" field could mean the date is unknown, the person declined to provide it, or it hasn't been entered yet. Each scenario has different implications. </li>
+                <li><strong>Data Integrity Issues:</strong> Nulls can create challenges in maintaining data integrity, especially when enforcing constraints or relationships between tables.
+                    <br><strong>Example:</strong> If a "Foreign Key" field allows nulls, it can create "orphan records," which point to nonexistent records in another table, violating referential integrity.</li>
+                <li><strong>Query Complications:</strong> Queries often need special handling for null values using <code>IS NULL</code> or <code>IS NOT NULL</code> operators. This makes queries more complex, harder to read, and potentially less efficient.
+                    <br><strong>Example:</strong> A simple search for customers in a specific city becomes more complicated if the "City" field allows nulls. You need additional logic to decide if nulls should be included or excluded.</li>
+                <li><strong>Storage (Potential) Inefficiency:</strong> While the impact on storage varies between database systems, nulls can consume space, especially in large tables. Some databases optimize storage for nulls, but it's still a factor to consider.
+                    <br><strong>Example:</strong> A text field with a large character limit will use less storage if it's empty compared to having a null value, especially when repeated across millions of rows. </li>
+                <li><strong>Application Complexity:</strong> Developers must include additional code to handle null values appropriately to prevent errors.  This increases the complexity of the application logic. 
+                    <br><strong>Example:</strong> Before displaying a user's address, the application must check if the address fields are null. Otherwise, the application might try to display nothing or throw an error.</li>
+            </ul>
+        </div>
+        <div class="connection">
+            <h3>Connection between Null Fields and Data Anomalies</h3>
+            <p>Null fields can compound the negative effects of data anomalies.  Here's how:</p>
+            <ul>
+                <li><strong>Insert Anomaly:</strong> Allowing nulls in essential fields might make the insert anomaly worse. 
+                    <br><strong>Example:</strong> If the <code>CourseName</code> field in the TechEd example allowed nulls, you could create a course record with no name, leading to incomplete and confusing data. </li>
+                <li><strong>Update Anomaly:</strong> The presence of nulls adds complexity to update operations. 
+                    <br><strong>Example:</strong> Updating a doctor's contact information in the MediCare example becomes more complex if nulls are allowed. You need to check if the field is null before updating, increasing the chance of inconsistencies.</li>
+                <li><strong>Delete Anomaly:</strong> Nulls can obscure the relationships between data, making delete anomalies harder to detect and prevent.
+                    <br><strong>Example:</strong>  If the <code>ProductID</code> in the <code>Orders</code> table of the GadgetWorld example allowed nulls, you might be able to delete an order and still have a null <code>ProductID</code>, leaving behind a "ghost" order with incomplete information.</li>
+            </ul>
+        </div>
+        <div class="prevention">
+            <h3>Solutions for Handling Nulls:</h3>
+            <p>While completely eliminating nulls is often impractical, here's how to minimize their impact: </p>
+            <ul>
+                <li><strong>Database Normalization:</strong> A well-normalized database will inherently reduce the need for nulls. By ensuring that data is stored in its most appropriate location and eliminating redundancy, you often reduce situations where nulls are needed. </li>
+                <li><strong>Default Values:</strong>  Where appropriate, use default values instead of nulls. 
+                    <br><strong>Example:</strong> Instead of a null in a "Registration Date" field, default it to the current date, especially if a null value doesn't add useful information.</li>
+                <li><strong>Separate Tables for Optional Data:</strong> If certain data is only relevant to a subset of records, move that data to a separate, related table.
+                    <br><strong>Example:</strong>  If not all products have a detailed description, create a <code>ProductDescriptions</code> table and link it to the <code>Products</code> table. This avoids having a nullable "Description" field in the main <code>Products</code> table. </li>
+                <li><strong>NOT NULL Constraints:</strong> Enforce <code>NOT NULL</code> constraints on fields where a value is always required. This enforces data integrity at the database level, preventing nulls from being entered in the first place.</li>
+            </ul>
+            <p>By addressing nulls strategically during the database design phase and employing these techniques, you can significantly enhance data quality, simplify data management, and create a more robust and reliable database system.</p>
+        </div>
+    </div>
+
+    <script>
+        function showScenario(scenarioId) {
+            const scenarios = document.getElementsByClassName('scenario-container');
+            for (let i = 0; i < scenarios.length; i++) {
+                scenarios[i].style.display = 'none';
+            }
+            document.getElementById(scenarioId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
