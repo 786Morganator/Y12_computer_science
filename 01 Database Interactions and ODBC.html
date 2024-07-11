@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connecting the Dots: Understanding Database Interactions and ODBC</title>
-    <style>
+<html><head><base href="https://websim.ai"><title>ODBC Learning Portal</title><style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.7;
@@ -110,9 +104,7 @@
             margin-top: 20px;
             display: none;
         }
-    </style>
-</head>
-<body>
+    </style></head><body>
     <div class="container">
         <h1>Connecting the Dots: Understanding Database Interactions and ODBC</h1>
 
@@ -233,7 +225,7 @@
                 <li><strong>ODBC Driver: </strong> This is a small program that translates ODBC instructions into a language the specific database can understand (like a specialized translator for each database). </li>
                 <li><strong>Database:</strong> The driver sends the translated request to the database.</li>
                 <li><strong>Data Retrieval:</strong> The database processes the request and sends the data back to the driver.</li>
-                <li><strong>Translation & Delivery:</strong> The driver translates the data into a format the application can understand and sends it back through the ODBC API.</li>
+                <li><strong>Translation &amp; Delivery:</strong> The driver translates the data into a format the application can understand and sends it back through the ODBC API.</li>
             </ol>
         </div>
 
@@ -251,15 +243,15 @@
                         conn_str = 'DSN=myDataSource;UID=yourUsername;PWD=yourPassword' <br>
                         # Establish a connection<br>
                         with pyodbc.connect(conn_str) as conn: <br>
-                                # Create a cursor object to execute queries<br>
-                                cursor = conn.cursor() <br>
-                                # Execute a simple SELECT query <br>
-                                cursor.execute("SELECT * FROM Customers") <br>
-                                # Fetch all rows from the result <br>
-                                rows = cursor.fetchall() <br>
-                                # Print the data <br>
-                                for row in rows: <br>
-                                    print(row) 
+                                # Create a cursor object to execute queries<br>
+                                cursor = conn.cursor() <br>
+                                # Execute a simple SELECT query <br>
+                                cursor.execute("SELECT * FROM Customers") <br>
+                                # Fetch all rows from the result <br>
+                                rows = cursor.fetchall() <br>
+                                # Print the data <br>
+                                for row in rows: <br>
+                                    print(row) 
                     </code>
                 </li>
                 <li><strong>Java:</strong>
@@ -286,12 +278,12 @@
                         // Create and open the connection<br>
                         using (OdbcConnection connection = new OdbcConnection(connectionString)) <br>
                         { <br>
-                                connection.Open(); <br>
+                                connection.Open(); <br>
                             // Create a command object <br>
-                                OdbcCommand command = new OdbcCommand("SELECT * FROM Customers", connection); <br>
+                                OdbcCommand command = new OdbcCommand("SELECT * FROM Customers", connection); <br>
                             // Execute the reader <br>
-                                OdbcDataReader reader = command.ExecuteReader(); <br>
-                                // Process the data (reader) <br>
+                                OdbcDataReader reader = command.ExecuteReader(); <br>
+                                // Process the data (reader) <br>
                         }  <br>
                     </code>
                 </li>
@@ -315,13 +307,17 @@
 import pyodbc
 
 # Establish connection
-conn = pyodbc.connect('DSN=YourDataSourceName;UID=YourUsername;PWD=YourPassword')
+conn = pyodbc.connect(
+    'DSN=YourDataSourceName;'
+    'UID=YourUsername;'
+    'PWD=YourPassword'
+)
 
 # Create a cursor
 cursor = conn.cursor()
 
 # Now you're ready to execute SQL statements!
-    </code></pre>
+</code></pre>
 </div>
 
 <div class="slide" id="slide-11">
@@ -333,13 +329,13 @@ cursor = conn.cursor()
             <br> <code class="code-example">cursor.execute("SELECT ProductName, Price FROM Products WHERE Category = 'Electronics'")
 results = cursor.fetchall()</code> </li>
         <li><strong>INSERT:</strong>  Adds new data.
-            <br> <code class="code-example">cursor.execute("INSERT INTO Customers (FirstName, LastName, Email) VALUES (?, ?, ?)", 'John', 'Doe', 'john.doe@email.com')
+            <br> <code class="code-example">cursor.execute("INSERT INTO Customers (FirstName, LastName, Email) VALUES (?, ?, ?)", 'John', 'Doe', '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="eb81848385c58f848eab8e868a8287c5888486">[email&#160;protected]</a>')
 conn.commit()</code> </li>
         <li><strong>UPDATE:</strong>  Modifies existing data.
             <br> <code class="code-example">cursor.execute("UPDATE Products SET Price = ? WHERE ProductID = ?", 699.99, 10)
 conn.commit()</code></li>
         <li><strong>DELETE:</strong>  Removes data.
-            <br> <code class="code-example">cursor.execute("DELETE FROM Orders WHERE OrderDate < ?, '2023-01-01')
+            <br> <code class="code-example">cursor.execute("DELETE FROM Orders WHERE OrderDate &lt; ?", '2023-01-01')
 conn.commit()</code> </li>
     </ul>
     <p>ODBC allows you to send these SQL commands to a database and get back the results you need, regardless of the database's specific implementation.</p>
@@ -349,8 +345,8 @@ conn.close()
     </code></pre>
 </div>
 
-        <!-- Slide 11: ORM Frameworks -->
-        <div class="slide" id="slide-11">
+        <!-- Slide 12: ORM Frameworks -->
+        <div class="slide" id="slide-12">
             <h3>ORM Frameworks: Simplifying Database Interactions</h3>
             <p>ORMs (Object-Relational Mappers) are powerful tools that make it easier for developers to work with databases. They provide a more intuitive and object-oriented way to interact with databases, abstracting away some of the complexities of SQL and database structures. </p>
 
@@ -378,12 +374,13 @@ conn.close()
             </ul>
         </div>
 
-        <!-- Slide 12: Conclusion -->
-        <div class="slide" id="slide-12">
-            <h2>Conclusion:  The Power of Connecting Data and Applications</h2>
-            <p>Database interactions are the lifeblood of modern software. They empower applications to access, manipulate, and leverage data to create dynamic, personalized, and efficient experiences for users.</p>
-            <p>ODBC plays a vital role in simplifying these interactions, providing a common language that bridges the gap between diverse database systems and the applications that rely on them. Whether you're working directly with ODBC or using an ORM to abstract away the complexities, understanding database interactions is essential for building robust, data-driven applications. </p>
-        </div>
+        <!-- Slide 13: Conclusion -->
+        <div class="slide" id="slide-13">
+    <h2>Conclusion:  The Power of Connecting Data and Applications</h2>
+    <p>Database interactions are the lifeblood of modern software. They empower applications to access, manipulate, and leverage data to create dynamic, personalized, and efficient experiences for users.</p>
+    <p>ODBC plays a vital role in simplifying these interactions, providing a common language that bridges the gap between diverse database systems and the applications that rely on them. Whether you're working directly with ODBC or using an ORM to abstract away the complexities, understanding database interactions is essential for building robust, data-driven applications.</p>
+    <p>Ready to test your knowledge? Take our <a href="https://786morganator.github.io/web/ODBCquiz.html">ODBC Learning Quiz</a> to reinforce what you've learned in this tutorial!</p>
+</div>
 
     
         <div class="nav-buttons">
@@ -392,48 +389,29 @@ conn.close()
         </div>
     </div> 
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         let currentSlide = 1;
         const totalSlides = document.querySelectorAll('.slide').length;
 
         function showSlide(n) {
             document.getElementById(`slide-${currentSlide}`).classList.remove('active');
             currentSlide = n; 
-            document.getElementById(`slide-${currentSlide}`).classList.add('active');
-
-            // Hide quiz results when navigating away from quiz slide 
-            if (currentSlide !== 13) {
-                document.getElementById('results').style.display = 'none';
+            if (currentSlide > totalSlides) {
+                currentSlide = 1;
+            } else if (currentSlide < 1) {
+                currentSlide = totalSlides;
             }
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
         }
 
         function nextSlide() {
-            showSlide((currentSlide % totalSlides) + 1); 
+            showSlide(currentSlide + 1);
         }
 
         function prevSlide() {
-            showSlide(((currentSlide - 2 + totalSlides) % totalSlides) + 1);
-        }
-
-        function checkAnswers() {
-            let score = 0;
-            const resultsDiv = document.getElementById('results');
-
-            if (document.querySelector('input[name="q1"]:checked').value === 'b') {
-                score++;
-            }
-            if (document.querySelector('input[name="q2"]:checked').value === 'c') {
-                score++;
-            }
-            if (document.querySelector('input[name="q3"]:checked').value === 'b') {
-                score++;
-            }
-
-            resultsDiv.innerHTML = `<h3>You got ${score} out of 3 correct!</h3>`;
-            resultsDiv.style.display = 'block';
+            showSlide(currentSlide - 1);
         }
 
         showSlide(currentSlide); 
     </script>
-</body>
-</html>
+</body></html>
