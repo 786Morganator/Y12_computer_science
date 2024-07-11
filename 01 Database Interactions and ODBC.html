@@ -299,10 +299,55 @@
         </div>
 
         <!-- Slide 10: SQL Basics -->
+<div class="slide" id="slide-10">
+    <h3>Connecting to Databases with ODBC</h3>
+    <p>Before executing SQL statements, we need to establish a connection to the database using ODBC (Open Database Connectivity).</p>
+    <p><strong>Here are the typical steps to connect via ODBC:</strong></p>
+    <ol>
+        <li>Set up an ODBC data source (DSN) in your operating system</li>
+        <li>Use a programming language to create an ODBC connection</li>
+        <li>Open the connection</li>
+        <li>Execute SQL statements</li>
+        <li>Close the connection when finished</li>
+    </ol>
+    <p><strong>Example of connecting via ODBC in Python:</strong></p>
+    <pre><code class="language-python">
+import pyodbc
 
+# Establish connection
+conn = pyodbc.connect('DSN=YourDataSourceName;UID=YourUsername;PWD=YourPassword')
 
-        <p>Note: Error handling is omitted for brevity but should be included in actual code. Always check return values and use SQLGetDiagRec for detailed error information.</p>
-    </div>
+# Create a cursor
+cursor = conn.cursor()
+
+# Now you're ready to execute SQL statements!
+    </code></pre>
+</div>
+
+<div class="slide" id="slide-11">
+    <h3>SQL: The Language of Databases</h3>
+    <p>Once connected via ODBC, you can use SQL (Structured Query Language) to interact with the database. SQL is a powerful tool for retrieving and managing data.</p>
+    <p><strong>Here's a quick look at some basic SQL commands:</strong></p>
+    <ul>
+        <li><strong>SELECT:</strong> Retrieves data.  
+            <br> <code class="code-example">cursor.execute("SELECT ProductName, Price FROM Products WHERE Category = 'Electronics'")
+results = cursor.fetchall()</code> </li>
+        <li><strong>INSERT:</strong>  Adds new data.
+            <br> <code class="code-example">cursor.execute("INSERT INTO Customers (FirstName, LastName, Email) VALUES (?, ?, ?)", 'John', 'Doe', 'john.doe@email.com')
+conn.commit()</code> </li>
+        <li><strong>UPDATE:</strong>  Modifies existing data.
+            <br> <code class="code-example">cursor.execute("UPDATE Products SET Price = ? WHERE ProductID = ?", 699.99, 10)
+conn.commit()</code></li>
+        <li><strong>DELETE:</strong>  Removes data.
+            <br> <code class="code-example">cursor.execute("DELETE FROM Orders WHERE OrderDate < ?, '2023-01-01')
+conn.commit()</code> </li>
+    </ul>
+    <p>ODBC allows you to send these SQL commands to a database and get back the results you need, regardless of the database's specific implementation.</p>
+    <pre><code class="language-python">
+# Don't forget to close the connection when you're done!
+conn.close()
+    </code></pre>
+</div>
 
         <!-- Slide 11: ORM Frameworks -->
         <div class="slide" id="slide-11">
@@ -338,7 +383,6 @@
             <h2>Conclusion:  The Power of Connecting Data and Applications</h2>
             <p>Database interactions are the lifeblood of modern software. They empower applications to access, manipulate, and leverage data to create dynamic, personalized, and efficient experiences for users.</p>
             <p>ODBC plays a vital role in simplifying these interactions, providing a common language that bridges the gap between diverse database systems and the applications that rely on them. Whether you're working directly with ODBC or using an ORM to abstract away the complexities, understanding database interactions is essential for building robust, data-driven applications. </p>
-            <a href="https://786morganator.github.io/web/ODBCquiz.html" style="display: block; margin-bottom: 140px;">Database Interactions and ODBC Quiz</a>
         </div>
 
     
