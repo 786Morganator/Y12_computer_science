@@ -299,22 +299,155 @@
         </div>
 
         <!-- Slide 10: SQL Basics -->
-        <div class="slide" id="slide-10">
-            <h3>SQL: The Language of Databases</h3>
-            <p>ODBC often works with SQL (Structured Query Language) to talk to databases. SQL is a powerful tool for retrieving and managing data. It's like giving specific instructions to the database to tell it what you need. </p>
-            <p><strong>Here’s a quick look at some basic SQL commands:</strong></p>
-            <ul>
-                <li><strong>SELECT:</strong> Retrieves data.  
-                    <br> <code class="code-example">SELECT ProductName, Price FROM Products WHERE Category = 'Electronics';</code> </li>
-                <li><strong>INSERT:</strong>  Adds new data.
-                    <br> <code class="code-example">INSERT INTO Customers (FirstName, LastName, Email) VALUES ('John', 'Doe', 'john.doe@email.com');</code> </li>
-                <li><strong>UPDATE:</strong>  Modifies existing data.
-                    <br> <code class="code-example">UPDATE Products SET Price = 699.99 WHERE ProductID = 10;</code></li>
-                <li><strong>DELETE:</strong>  Removes data.
-                    <br> <code class="code-example">DELETE FROM Orders WHERE OrderDate < '2023-01-01'; </code> </li>
-            </ul>
-            <p>ODBC allows you to send these SQL commands to a database and get back the results you need, regardless of the database's specific language. </p>
+    <div class="container">
+        <h1>SQL Commands with ODBC</h1>
+
+        <div class="note">
+            <strong>Important Note for Students:</strong> 
+            <p>This document provides a comparison between pure SQL commands and their ODBC implementations. While it's beneficial to understand that ODBC is a way to interact with databases, students are <em>not expected to know or memorize the detailed ODBC implementation</em>. The ODBC code is shown here for illustrative purposes only, to demonstrate how SQL commands are translated into programmatic database interactions. Your primary focus should be on understanding the SQL commands themselves.</p>
         </div>
+
+        <h2>Establishing an ODBC Connection</h2>
+        <div class="odbc">
+            <h3>ODBC Connection Setup (For Reference Only)</h3>
+            <pre>
+#include &lt;sql.h&gt;
+#include &lt;sqlext.h&gt;
+
+SQLHENV env;
+SQLHDBC dbc;
+SQLRETURN ret;
+
+// Allocate environment handle
+SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &env);
+SQLSetEnvAttr(env, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
+
+// Allocate connection handle
+SQLAllocHandle(SQL_HANDLE_DBC, env, &dbc);
+
+// Connect to the database
+SQLCHAR* connStr = (SQLCHAR*)"DSN=MyDataSource;UID=MyUsername;PWD=MyPassword;";
+ret = SQLDriverConnect(dbc, NULL, connStr, SQL_NTS, 
+                       NULL, 0, NULL, SQL_DRIVER_COMPLETE);
+
+if (SQL_SUCCEEDED(ret)) {
+    printf("Successfully connected to the database\n");
+} else {
+    printf("Failed to connect to the database\n");
+    // Handle error (check SQLGetDiagRec for more info)
+}
+
+// ... Use the connection (dbc) for SQL operations ...
+
+// When done, disconnect and free handles
+SQLDisconnect(dbc);
+SQLFreeHandle(SQL_HANDLE_DBC, dbc);
+SQLFreeHandle(SQL_HANDLE_ENV, env);
+            </pre>
+        </div>
+
+        <h2>SELECT Statement</h2>
+        <div class="sql-odbc-comparison">
+            <div class="sql">
+                <h3>Pure SQL (Focus on This)</h3>
+                <pre>SELECT * FROM customers;</pre>
+            </div>
+            <div class="odbc">
+                <h3>ODBC Usage (For Reference Only)</h3>
+                <pre>
+SQLHSTMT stmt;
+SQLCHAR *query = (SQLCHAR*)"SELECT * FROM customers";
+
+SQLAllocHandle(SQL_HANDLE_STMT, dbc, &stmt);
+SQLExecDirect(stmt, query, SQL_NTS);
+
+while (SQLFetch(stmt) == SQL_SUCCESS) {
+    // Retrieve column data with SQLGetData
+}
+
+SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+                </pre>
+            </div>
+        </div>
+
+        <h2>INSERT Statement</h2>
+        <div class="sql-odbc-comparison">
+            <div class="sql">
+                <h3>Pure SQL (Focus on This)</h3>
+                <pre>INSERT INTO orders (customer_id, product_id, quantity) VALUES (1, 100, 5);</pre>
+            </div>
+            <div class="odbc">
+                <h3>ODBC Usage (For Reference Only)</h3>
+                <pre>
+SQLHSTMT stmt;
+SQLCHAR *query = (SQLCHAR*)"INSERT INTO orders (customer_id, product_id, quantity) VALUES (?, ?, ?)";
+
+SQLAllocHandle(SQL_HANDLE_STMT, dbc, &stmt);
+SQLPrepare(stmt, query, SQL_NTS);
+
+SQLINTEGER custId = 1, prodId = 100, qty = 5;
+SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_LONG, SQL_INTEGER, 0, 0, &custId, 0, NULL);
+SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_LONG, SQL_INTEGER, 0, 0, &prodId, 0, NULL);
+SQLBindParameter(stmt, 3, SQL_PARAM_INPUT, SQL_C_LONG, SQL_INTEGER, 0, 0, &qty, 0, NULL);
+
+SQLExecute(stmt);
+SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+                </pre>
+            </div>
+        </div>
+
+        <h2>UPDATE Statement</h2>
+        <div class="sql-odbc-comparison">
+            <div class="sql">
+                <h3>Pure SQL (Focus on This)</h3>
+                <pre>UPDATE products SET price = 19.99 WHERE product_id = 100;</pre>
+            </div>
+            <div class="odbc">
+                <h3>ODBC Usage (For Reference Only)</h3>
+                <pre>
+SQLHSTMT stmt;
+SQLCHAR *query = (SQLCHAR*)"UPDATE products SET price = ? WHERE product_id = ?";
+
+SQLAllocHandle(SQL_HANDLE_STMT, dbc, &stmt);
+SQLPrepare(stmt, query, SQL_NTS);
+
+SQLFLOAT price = 19.99;
+SQLINTEGER prodId = 100;
+SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_DOUBLE, SQL_DOUBLE, 0, 0, &price, 0, NULL);
+SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_LONG, SQL_INTEGER, 0, 0, &prodId, 0, NULL);
+
+SQLExecute(stmt);
+SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+                </pre>
+            </div>
+        </div>
+
+        <h2>DELETE Statement</h2>
+        <div class="sql-odbc-comparison">
+            <div class="sql">
+                <h3>Pure SQL (Focus on This)</h3>
+                <pre>DELETE FROM discontinued_products WHERE last_sale_date < '2023-01-01';</pre>
+            </div>
+            <div class="odbc">
+                <h3>ODBC Usage (For Reference Only)</h3>
+                <pre>
+SQLHSTMT stmt;
+SQLCHAR *query = (SQLCHAR*)"DELETE FROM discontinued_products WHERE last_sale_date < ?";
+
+SQLAllocHandle(SQL_HANDLE_STMT, dbc, &stmt);
+SQLPrepare(stmt, query, SQL_NTS);
+
+SQL_DATE_STRUCT date = {2023, 1, 1};
+SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_TYPE_DATE, SQL_TYPE_DATE, 10, 0, &date, 0, NULL);
+
+SQLExecute(stmt);
+SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+                </pre>
+            </div>
+        </div>
+
+        <p>Note: Error handling is omitted for brevity but should be included in actual code. Always check return values and use SQLGetDiagRec for detailed error information.</p>
+    </div>
 
         <!-- Slide 11: ORM Frameworks -->
         <div class="slide" id="slide-11">
