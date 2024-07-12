@@ -1,0 +1,377 @@
+<html><head><base href="https://websim.ai"><title>Database Concepts: Y12 ATAR Level</title><style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+h1 {
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+h2 {
+    margin-top: 30px;
+    border-left: 4px solid #e74c3c;
+    padding-left: 10px;
+}
+
+.question, .activity {
+    background-color: #fff;
+    border-left: 4px solid #3498db;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.question h3, .activity h3 {
+    margin-top: 0;
+    color: #3498db;
+}
+
+.solution, .tutorial-step {
+    display: none;
+    background-color: #e8f6fe;
+    border-left: 4px solid #2ecc71;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.show-solution, .show-step {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.show-solution:hover, .show-step:hover {
+    background-color: #2980b9;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f9f9f9;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+pre {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+}
+</style></head><body>
+
+<h1>Database Concepts: Y12 ATAR Level</h1>
+
+<h2>Comprehension Questions</h2>
+
+<div class="question">
+    <h3>Question 1: Primary and Foreign Keys</h3>
+    <p>Explain the difference between a primary key and a foreign key in a relational database. Provide an example of how they might be used in a simple library database with a 'Books' table and a 'Borrowers' table.</p>
+    <button class="show-solution" onclick="toggleSolution('solution1')">Show/Hide Solution</button>
+    <div id="solution1" class="solution">
+        <p><strong>Solution:</strong></p>
+        <p>A primary key is a column or set of columns in a table that uniquely identifies each row in that table. It must contain unique values and cannot be null. A foreign key is a column or set of columns in a table that refers to the primary key in another table. It establishes a link between the two tables.</p>
+        <p>Example in a library database:</p>
+        <pre><code>
+Books Table:
+BookID (Primary Key) | Title | Author
+
+Borrowers Table:
+BorrowerID (Primary Key) | Name | Email
+
+Loans Table:
+LoanID (Primary Key) | BookID (Foreign Key) | BorrowerID (Foreign Key) | LoanDate
+        </code></pre>
+        <p>In this example, BookID is the primary key in the Books table, and BorrowerID is the primary key in the Borrowers table. In the Loans table, BookID and BorrowerID are foreign keys that reference the primary keys in the Books and Borrowers tables respectively.</p>
+    </div>
+</div>
+
+<div class="question">
+    <h3>Question 2: Composite Keys</h3>
+    <p>What is a composite key? Give an example of when you might use a composite key instead of a single-column primary key in a school database system.</p>
+    <button class="show-solution" onclick="toggleSolution('solution2')">Show/Hide Solution</button>
+    <div id="solution2" class="solution">
+        <p><strong>Solution:</strong></p>
+        <p>A composite key is a primary key that consists of two or more columns in a table. It's used when a single column is not sufficient to uniquely identify a row in the table.</p>
+        <p>Example in a school database:</p>
+        <pre><code>
+ClassEnrollment Table:
+StudentID | CourseID | Semester | Year | Grade
+
+Primary Key: (StudentID, CourseID, Semester, Year)
+        </code></pre>
+        <p>In this example, we use a composite key because a student might take the same course in different semesters or years. The combination of StudentID, CourseID, Semester, and Year ensures each record is unique.</p>
+    </div>
+</div>
+
+<div class="question">
+    <h3>Question 3: Data Anomalies</h3>
+    <p>Describe what an update anomaly is in database management. Provide a simple example of how an update anomaly could occur in a poorly designed database table.</p>
+    <button class="show-solution" onclick="toggleSolution('solution3')">Show/Hide Solution</button>
+    <div id="solution3" class="solution">
+        <p><strong>Solution:</strong></p>
+        <p>An update anomaly occurs when updating a single piece of information requires multiple records to be updated, or when updating a record can lead to inconsistencies in the database.</p>
+        <p>Example of a poorly designed table prone to update anomalies:</p>
+        <pre><code>
+StudentCourses Table:
+StudentID | StudentName | CourseID | CourseName | Instructor
+
+1 | John Doe | CS101 | Intro to Programming | Dr. Smith
+1 | John Doe | MATH201 | Calculus I | Prof. Johnson
+2 | Jane Smith | CS101 | Intro to Programming | Dr. Smith
+        </code></pre>
+        <p>In this table, if we need to update the instructor for CS101, we'd have to update multiple rows. If we only update one row, it could lead to inconsistencies. This is an update anomaly. To fix this, we should separate the data into different tables (Students, Courses, and Enrollments).</p>
+    </div>
+</div>
+
+<div class="question">
+    <h3>Question 4: ACID Properties</h3>
+    <p>What does the acronym ACID stand for in database transactions? Briefly explain why each of these properties is important for maintaining data integrity.</p>
+    <button class="show-solution" onclick="toggleSolution('solution4')">Show/Hide Solution</button>
+    <div id="solution4" class="solution">
+        <p><strong>Solution:</strong></p>
+        <p>ACID stands for:</p>
+        <ul>
+            <li><strong>Atomicity:</strong> Ensures that all operations in a transaction are completed successfully, or none of them are. This prevents partial updates that could leave the database in an inconsistent state.</li>
+            <li><strong>Consistency:</strong> Ensures that a transaction brings the database from one valid state to another. This maintains the integrity of data across related tables.</li>
+            <li><strong>Isolation:</strong> Ensures that concurrent execution of transactions leaves the database in the same state as if the transactions were executed sequentially. This prevents interference between transactions.</li>
+            <li><strong>Durability:</strong> Ensures that once a transaction is committed, it remains so, even in the event of power loss or system failures. This protects the integrity of data over time.</li>
+        </ul>
+        <p>These properties are crucial for maintaining data integrity by ensuring that database transactions are processed reliably, consistently, and without interference, even in complex or failure-prone environments.</p>
+    </div>
+</div>
+
+<div class="question">
+    <h3>Question 5: Database Interaction</h3>
+    <p>Explain what Open Database Connectivity (ODBC) is and why it might be useful when developing applications that need to interact with different types of databases.</p>
+    <button class="show-solution" onclick="toggleSolution('solution5')">Show/Hide Solution</button>
+    <div id="solution5" class="solution">
+        <p><strong>Solution:</strong></p>
+        <p>Open Database Connectivity (ODBC) is a standard application programming interface (API) for accessing database management systems (DBMS). It's designed to be independent of programming languages, database systems, and operating systems.</p>
+        <p>ODBC is useful for several reasons:</p>
+        <ul>
+            <li>It provides a common interface for applications to interact with different types of databases (e.g., MySQL, Oracle, SQL Server) without needing to know the specifics of each database system.</li>
+            <li>It allows developers to write applications that can work with multiple databases without major code changes.</li>
+            <li>It simplifies the process of switching between different database systems, as the application code doesn't need to change.</li>
+            <li>It enables applications to connect to databases across different platforms and operating systems.</li>
+        </ul>
+        <p>For example, a developer could create a single application that can work with both MySQL and Oracle databases by using ODBC, rather than writing separate code for each database system.</p>
+    </div>
+</div>
+
+<h2>Practical Activities</h2>
+
+<div class="activity">
+    <h3>Tutorial 1: Creating a Simple Database with SQLite and Python in Visual Studio Code</h3>
+    <p>In this tutorial, we'll create a simple library database using SQLite and Python in Visual Studio Code. We'll create tables for books and borrowers, and implement a loan system.</p>
+    
+    <button class="show-step" onclick="toggleStep('step1')">Step 1: Setting up the environment</button>
+    <div id="step1" class="tutorial-step">
+    <p>First, make sure you have Visual Studio Code and Python installed on your computer. We'll be using Python and SQLite for this project.</p>
+    <ol>
+        <li>Open Visual Studio Code and create a new Python file named "library_database.py".</li>
+        <li>Make sure you have the SQLite3 module, which comes built-in with Python.</li>
+        <li>If you don't have it, you can install it through the Visual Studio Code extensions:
+            <ol>
+                <li>Open the Extensions view in VS Code (Ctrl+Shift+X).</li>
+                <li>Search for "SQLite" in the Extensions marketplace.</li>
+                <li>Look for the official SQLite extension and click "Install".</li>
+                <li>Once installed, restart VS Code to activate the extension.</li>
+            </ol>
+        </li>
+    </ol>
+    <p>Note: Using pip to install packages may not be allowed in your school environment, so we're using the VS Code extension method instead.</p>
+</div>
+
+    <button class="show-step" onclick="toggleStep('step2')">Step 2: Setting up the database connection</button>
+    <div id="step2" class="tutorial-step">
+        <p>Add the following code at the top of your library_database.py file:</p>
+        <pre><code>
+import sqlite3
+import datetime
+
+def create_connection():
+    conn = None
+    try:
+        conn = sqlite3.connect('library.db')
+        print(f"Connected to SQLite version: {sqlite3.version}")
+    except sqlite3.Error as e:
+        print(f"Error connecting to database: {e}")
+    return conn
+
+if __name__ == '__main__':
+    conn = create_connection()
+    # We'll add more code here in the next steps
+    if conn:
+        conn.close()
+        </code></pre>
+        <p>This code sets up a connection to a SQLite database file named 'library.db'. If the file doesn't exist, it will be created.</p>
+    </div>
+
+    <button class="show-step" onclick="toggleStep('step3')">Step 3: Creating the tables</button>
+    <div id="step3" class="tutorial-step">
+        <p>Add the following function to create the tables:</p>
+        <pre><code>
+def create_tables(conn):
+    try:
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Books (
+                BookID INTEGER PRIMARY KEY,
+                Title TEXT NOT NULL,
+                Author TEXT NOT NULL
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Borrowers (
+                BorrowerID INTEGER PRIMARY KEY,
+                Name TEXT NOT NULL,
+                Class TEXT NOT NULL
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Loans (
+                LoanID INTEGER PRIMARY KEY,
+                BookID INTEGER,
+                BorrowerID INTEGER,
+                LoanDate TEXT,
+                FOREIGN KEY (BookID) REFERENCES Books(BookID),
+                FOREIGN KEY (BorrowerID) REFERENCES Borrowers(BorrowerID)
+            )
+        ''')
+        conn.commit()
+        print("Tables created successfully")
+    except sqlite3.Error as e:
+        print(f"Error creating tables: {e}")
+        </code></pre>
+        <p>Call this function in your main block after creating the connection:</p>
+        <pre><code>
+if __name__ == '__main__':
+    conn = create_connection()
+    if conn:
+        create_tables(conn)
+        # More code to come
+        conn.close()
+        </code></pre>
+    </div>
+
+    <button class="show-step" onclick="toggleStep('step4')">Step 4: Inserting sample data</button>
+    <div id="step4" class="tutorial-step">
+        <p>Add the following function to insert sample data:</p>
+        <pre><code>
+def insert_sample_data(conn):
+    try:
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO Books (Title, Author) VALUES (?, ?)", ("To Kill a Mockingbird", "Harper Lee"))
+        cursor.execute("INSERT INTO Books (Title, Author) VALUES (?, ?)", ("1984", "George Orwell"))
+        cursor.execute("INSERT INTO Borrowers (Name, Class) VALUES (?, ?)", ("John Doe", "12A"))
+        cursor.execute("INSERT INTO Borrowers (Name, Class) VALUES (?, ?)", ("Jane Smith", "11B"))
+        cursor.execute("INSERT INTO Loans (BookID, BorrowerID, LoanDate) VALUES (?, ?, ?)", 
+                       (1, 1, datetime.date.today().isoformat()))
+        conn.commit()
+        print("Sample data inserted successfully")
+    except sqlite3.Error as e:
+        print(f"Error inserting sample data: {e}")
+        </code></pre>
+        <p>Call this function in your main block:</p>
+        <pre><code>
+if __name__ == '__main__':
+    conn = create_connection()
+    if conn:
+        create_tables(conn)
+        insert_sample_data(conn)
+        # More code to come
+        conn.close()
+        </code></pre>
+    </div>
+
+    <button class="show-step" onclick="toggleStep('step5')">Step 5: Querying the database</button>
+    <div id="step5" class="tutorial-step">
+        <p>Add the following function to query the database and display current loans:</p>
+        <pre><code>
+def display_current_loans(conn):
+    try:
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT Books.Title, Borrowers.Name, Loans.LoanDate
+            FROM Loans
+            JOIN Books ON Loans.BookID = Books.BookID
+            JOIN Borrowers ON Loans.BorrowerID = Borrowers.BorrowerID
+        ''')
+        loans = cursor.fetchall()
+        print("\nBooks currently on loan:")
+        for loan in loans:
+            print(f"'{loan[0]}' borrowed by {loan[1]} on {loan[2]}")
+    except sqlite3.Error as e:
+        print(f"Error querying loans: {e}")
+        </code></pre>
+        <p>Call this function in your main block:</p>
+        <pre><code>
+if __name__ == '__main__':
+    conn = create_connection()
+    if conn:
+        create_tables(conn)
+        insert_sample_data(conn)
+        display_current_loans(conn)
+        conn.close()
+        </code></pre>
+    </div>
+
+    <button class="show-step" onclick="toggleStep('step6')">Step 6: Running the program</button>
+    <div id="step6" class="tutorial-step">
+    <p>Now that you have created your library_database.py file with all the necessary functions, it's time to run the program:</p>
+    <ol>
+        <li>In Visual Studio Code, look for the "Run" button (usually a triangle icon) at the top right of the editor.</li>
+        <li>Click the "Run" button or use the keyboard shortcut (typically F5).</li>
+        <li>The program will execute, and you'll see the output in the integrated terminal at the bottom of the VS Code window.</li>
+    </ol>
+    <p>This will run all the functions we've created, including creating the database connection, setting up the tables, inserting sample data, and displaying the current loans.</p>
+    <p>Observe the output in the terminal carefully. You should see messages confirming the successful creation of tables, insertion of sample data, and a list of books currently on loan.</p>
+    <p>Congratulations! You've successfully created and interacted with a simple library database using SQLite and Python.</p>
+</div>
+
+    <p>Congratulations! You've created a simple library database using SQLite and Python in Visual Studio Code. This database demonstrates the use of primary keys, foreign keys, and basic SQL queries.</p>
+</div>
+
+<script>
+function toggleSolution(id) {
+    var solution = document.getElementById(id);
+    if (solution.style.display === "none" || solution.style.display === "") {
+        solution.style.display = "block";
+    } else {
+        solution.style.display = "none";
+    }
+}
+
+function toggleStep(id) {
+    var step = document.getElementById(id);
+    if (step.style.display === "none" || step.style.display === ""){
+        step.style.display = "block";
+    } else {
+        step.style.display = "none";
+    }
+}
+</script>
+
+</body></html>
