@@ -69,7 +69,6 @@
     <div class="quiz-container">
         <h1>Database Interactions and ODBC Quiz</h1>
         <form id="quiz-form">
-            <!-- Questions 1-15 -->
             <!-- Question 1 -->
             <div class="question">
                 <p>1. What is the primary purpose of database interactions in modern software?</p>
@@ -256,51 +255,53 @@
     </div>
 
    <script>
-        const answers = {
-            q1: { answer: 'b', feedback: "Correct! Database interactions primarily serve to store, retrieve, and manage vast amounts of information in modern software." },
-            q2: { answer: 'c', feedback: "That's right! Application integration refers to creating a smooth and efficient flow of data between applications and databases." },
-            q3: { answer: 'c', feedback: "Correct! Enhanced collaboration between different teams or organizations is a key benefit of effective data exchange." },
-            q4: { answer: 'b', feedback: "Exactly! Web services allow applications to access data and functionality from remote servers over the internet." },
-            q5: { answer: 'c', feedback: "That's correct! Reporting tools extract valuable information from databases and present it in a user-friendly way." },
-            q6: { answer: 'b', feedback: "Right! ODBC provides a common language for applications to interact with various databases." },
-            q7: { answer: 'c', feedback: "Correct! Automatic database optimization is not a primary benefit of ODBC." },
-            q8: { answer: 'c', feedback: "That's right! The ODBC Driver Manager acts as a dispatcher, determining which database driver to use." },
-            q9: { answer: 'b', feedback: "Exactly! The ODBC Driver translates ODBC instructions into a language the specific database can understand." },
-            q10: { answer: 'd', feedback: "Correct! JavaScript is not mentioned in the article as an example for ODBC usage." },
-            q11: { answer: 'c', feedback: "Right! SQL is primarily used to retrieve and manage data in databases." },
-            q12: { answer: 'c', feedback: "That's correct! ORM frameworks simplify database interactions by using an object-oriented approach." },
-            q13: { answer: 'd', feedback: "Exactly! Automatic database scaling is not mentioned as a benefit of using ORMs." },
-            q14: { answer: 'd', feedback: "Right! Sequelize is not listed as a popular ORM framework in the article." },
-            q15: { answer: 'c', feedback: "Correct! Database interactions are described as the lifeblood of modern software, empowering applications with data access and manipulation." }
-        };
+    const answers = {
+        q1: { answer: 'b', feedback: "Database interactions primarily serve to store, retrieve, and manage vast amounts of information in modern software." },
+        q2: { answer: 'c', feedback: "Application integration refers to creating a smooth and efficient flow of data between applications and databases." },
+        q3: { answer: 'c', feedback: "Enhanced collaboration between different teams or organizations is a key benefit of effective data exchange." },
+        q4: { answer: 'b', feedback: "Web services allow applications to access data and functionality from remote servers over the internet." },
+        q5: { answer: 'c', feedback: "Reporting tools extract valuable information from databases and present it in a user-friendly way." },
+        q6: { answer: 'b', feedback: "ODBC provides a common language for applications to interact with various databases." },
+        q7: { answer: 'c', feedback: "Automatic database optimization is not a primary benefit of ODBC." },
+        q8: { answer: 'c', feedback: "The ODBC Driver Manager acts as a dispatcher, determining which database driver to use." },
+        q9: { answer: 'b', feedback: "The ODBC Driver translates ODBC instructions into a language the specific database can understand." },
+        q10: { answer: 'd', feedback: "JavaScript is not mentioned in the article as an example for ODBC usage." },
+        q11: { answer: 'c', feedback: "SQL is primarily used to retrieve and manage data in databases." },
+        q12: { answer: 'c', feedback: "ORM frameworks simplify database interactions by using an object-oriented approach." },
+        q13: { answer: 'd', feedback: "Automatic database scaling is not mentioned as a benefit of using ORMs." },
+        q14: { answer: 'd', feedback: "Sequelize is not listed as a popular ORM framework in the article." },
+        q15: { answer: 'c', feedback: "Database interactions are described as the lifeblood of modern software, empowering applications with data access and manipulation." }
+    };
 
-        function submitQuiz() {
-            let score = 0;
-            for (let i = 1; i <= 15; i++) {
-                const question = document.querySelector(`input[name="q${i}"]:checked`);
-                const feedbackElement = document.getElementById(`feedback${i}`);
-                
-                if (question) {
-                    if (question.value === answers[`q${i}`].answer) {
-                        score++;
-                        feedbackElement.textContent = answers[`q${i}`].feedback;
-                        feedbackElement.className = 'feedback correct';
-                    } else {
-                        feedbackElement.textContent = `Incorrect. ${answers[`q${i}`].feedback}`;
-                        feedbackElement.className = 'feedback incorrect';
-                    }
+    function submitQuiz() {
+        let score = 0;
+        for (let i = 1; i <= 15; i++) {
+            const question = document.querySelector(`input[name="q${i}"]:checked`);
+            const feedbackElement = document.getElementById(`feedback${i}`);
+            
+            if (question) {
+                if (question.value === answers[`q${i}`].answer) {
+                    score++;
+                    feedbackElement.textContent = `Correct! ${answers[`q${i}`].feedback}`;
+                    feedbackElement.className = 'feedback correct';
                 } else {
-                    feedbackElement.textContent = 'Please select an answer.';
-                    feedbackElement.className = 'feedback';
+                    feedbackElement.textContent = `Incorrect. ${answers[`q${i}`].feedback}`;
+                    feedbackElement.className = 'feedback incorrect';
                 }
+            } else {
+                feedbackElement.textContent = 'Please select an answer.';
+                feedbackElement.className = 'feedback';
             }
-            
-            const resultElement = document.getElementById('result');
-            resultElement.textContent = `You scored ${score} out of 15.`;
-            
-            // Scroll to the top of the page
-            window.scrollTo(0, 0);
         }
-    </script>
+        
+        const resultElement = document.getElementById('result');
+        resultElement.textContent = `You scored ${score} out of 15.`;
+        
+        // Scroll to the top of the page
+        window.scrollTo(0, 0);
+    }
+   </script>
 </body>
 </html>
+
+This completes the implementation of the quiz with all 15 questions and the updated feedback system. The quiz now provides clear and consistent feedback for each question, distinguishing between correct and incorrect answers. The overall structure and styling of the quiz remain intact, ensuring a user-friendly experience.
