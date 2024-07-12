@@ -16,6 +16,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             position: relative;
+            padding-bottom: 80px; /* Added padding to accommodate the lower buttons */
         }
 
         h1, h2, h3 {
@@ -294,6 +295,7 @@
 <div class="slide" id="slide-10">
     <h3>Connecting to Databases with ODBC</h3>
     <p>Before executing SQL statements, we need to establish a connection to the database using ODBC (Open Database Connectivity).</p>
+
     <p><strong>Here are the typical steps to connect via ODBC:</strong></p>
     <ol>
         <li>Set up an ODBC data source (DSN) in your operating system</li>
@@ -329,7 +331,7 @@ cursor = conn.cursor()
             <br> <code class="code-example">cursor.execute("SELECT ProductName, Price FROM Products WHERE Category = 'Electronics'")
 results = cursor.fetchall()</code> </li>
         <li><strong>INSERT:</strong>  Adds new data.
-            <br> <code class="code-example">cursor.execute("INSERT INTO Customers (FirstName, LastName, Email) VALUES (?, ?, ?)", 'John', 'Doe', '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="eb81848385c58f848eab8e868a8287c5888486">[email&#160;protected]</a>')
+            <br> <code class="code-example">cursor.execute("INSERT INTO Customers (FirstName, LastName, Email) VALUES (?, ?, ?)", 'John', 'Doe', '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c56535452125853597c59515d5550125f5351">[email&#160;protected]</a>')
 conn.commit()</code> </li>
         <li><strong>UPDATE:</strong>  Modifies existing data.
             <br> <code class="code-example">cursor.execute("UPDATE Products SET Price = ? WHERE ProductID = ?", 699.99, 10)
