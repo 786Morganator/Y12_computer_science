@@ -1,0 +1,255 @@
+<html><head><base href="https://www.geeksforgeeks.org/acid-properties-in-dbms/"><title>ACID Properties Quiz - GeeksForGeeks</title><style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f0f0f0;
+    }
+    h1 {
+        color: #0f9d58;
+        text-align: center;
+    }
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    input[type="radio"] {
+        margin-right: 10px;
+    }
+    input[type="submit"] {
+        background-color: #0f9d58;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    input[type="submit"]:hover {
+        background-color: #0b8043;
+    }
+    #result {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+    .feedback {
+        margin-top: 10px;
+        font-style: italic;
+        display: none;
+    }
+    .correct {
+        color: #0f9d58;
+    }
+    .incorrect {
+        color: #db4437;
+    }
+</style></head>
+<body>
+    <h1>ACID Properties in DBMS Quiz</h1>
+    <form id="quizForm">
+        <div class="question">
+            <p>1. What does ACID stand for in the context of database transactions?</p>
+            <label><input type="radio" name="q1" value="a"> a) Atomicity, Consistency, Isolation, Durability</label>
+            <label><input type="radio" name="q1" value="b"> b) Availability, Consistency, Integration, Distribution</label>
+            <label><input type="radio" name="q1" value="c"> c) Authentication, Cryptography, Integrity, Data security</label>
+            <label><input type="radio" name="q1" value="d"> d) Accuracy, Completeness, Indexing, Dependability</label>
+            <div class="feedback" id="feedback1"></div>
+        </div>
+
+        <div class="question">
+            <p>2. Which ACID property ensures that a transaction is treated as a single, indivisible unit of work?</p>
+            <label><input type="radio" name="q2" value="a"> a) Consistency</label>
+            <label><input type="radio" name="q2" value="b"> b) Isolation</label>
+            <label><input type="radio" name="q2" value="c"> c) Durability</label>
+            <label><input type="radio" name="q2" value="d"> d) Atomicity</label>
+            <div class="feedback" id="feedback2"></div>
+        </div>
+
+        <div class="question">
+            <p>3. Which property ensures that only valid data following all rules and constraints is written to the database?</p>
+            <label><input type="radio" name="q3" value="a"> a) Atomicity</label>
+            <label><input type="radio" name="q3" value="b"> b) Consistency</label>
+            <label><input type="radio" name="q3" value="c"> c) Isolation</label>
+            <label><input type="radio" name="q3" value="d"> d) Durability</label>
+            <div class="feedback" id="feedback3"></div>
+        </div>
+
+        <div class="question">
+            <p>4. The property that ensures concurrent execution of transactions results in a system state that would be obtained if transactions were executed sequentially is:</p>
+            <label><input type="radio" name="q4" value="a"> a) Atomicity</label>
+            <label><input type="radio" name="q4" value="b"> b) Consistency</label>
+            <label><input type="radio" name="q4" value="c"> c) Isolation</label>
+            <label><input type="radio" name="q4" value="d"> d) Durability</label>
+            <div class="feedback" id="feedback4"></div>
+        </div>
+
+        <div class="question">
+            <p>5. Which ACID property ensures that once a transaction has been committed, it will remain so, even in the event of power loss, crashes, or errors?</p>
+            <label><input type="radio" name="q5" value="a"> a) Atomicity</label>
+            <label><input type="radio" name="q5" value="b"> b) Consistency</label>
+            <label><input type="radio" name="q5" value="c"> c) Isolation</label>
+            <label><input type="radio" name="q5" value="d"> d) Durability</label>
+            <div class="feedback" id="feedback5"></div>
+        </div>
+
+        <div class="question">
+            <p>6. In the context of Atomicity, if a transaction is interrupted, all the changes made by the transaction are:</p>
+            <label><input type="radio" name="q6" value="a"> a) Partially committed</label>
+            <label><input type="radio" name="q6" value="b"> b) Rolled back</label>
+            <label><input type="radio" name="q6" value="c"> c) Saved to a temporary location</label>
+            <label><input type="radio" name="q6" value="d"> d) Committed anyway</label>
+            <div class="feedback" id="feedback6"></div>
+        </div>
+
+        <div class="question">
+            <p>7. Consistency ensures that a transaction brings the database from one valid state to another:</p>
+            <label><input type="radio" name="q7" value="a"> a) True</label>
+            <label><input type="radio" name="q7" value="b"> b) False</label>
+            <div class="feedback" id="feedback7"></div>
+        </div>
+
+        <div class="question">
+            <p>8. Which of the following is NOT a state of a transaction?</p>
+            <label><input type="radio" name="q8" value="a"> a) Active</label>
+            <label><input type="radio" name="q8" value="b"> b) Partially committed</label>
+            <label><input type="radio" name="q8" value="c"> c) Failed</label>
+            <label><input type="radio" name="q8" value="d"> d) Executing</label>
+            <div class="feedback" id="feedback8"></div>
+        </div>
+
+        <div class="question">
+            <p>9. The Isolation property is mainly achieved through:</p>
+            <label><input type="radio" name="q9" value="a"> a) Checkpoints</label>
+            <label><input type="radio" name="q9" value="b"> b) Rollback mechanisms</label>
+            <label><input type="radio" name="q9" value="c"> c) Concurrency control</label>
+            <label><input type="radio" name="q9" value="d"> d) Data redundancy</label>
+            <div class="feedback" id="feedback9"></div>
+        </div>
+
+        <div class="question">
+            <p>10. Durability is typically implemented using:</p>
+            <label><input type="radio" name="q10" value="a"> a) Database locks</label>
+            <label><input type="radio" name="q10" value="b"> b) Transaction logs</label>
+            <label><input type="radio" name="q10" value="c"> c) In-memory caching</label>
+            <label><input type="radio" name="q10" value="d"> d) Data compression</label>
+            <div class="feedback" id="feedback10"></div>
+        </div>
+
+        <div class="question">
+            <p>11. Which ACID property is responsible for ensuring that the effects of a committed transaction survive permanently?</p>
+            <label><input type="radio" name="q11" value="a"> a) Atomicity</label>
+            <label><input type="radio" name="q11" value="b"> b) Consistency</label>
+            <label><input type="radio" name="q11" value="c"> c) Isolation</label>
+            <label><input type="radio" name="q11" value="d"> d) Durability</label>
+            <div class="feedback" id="feedback11"></div>
+        </div>
+
+        <div class="question">
+            <p>12. The state of a transaction where it has performed its last operation and the changes are saved to the database is called:</p>
+            <label><input type="radio" name="q12" value="a"> a) Active</label>
+            <label><input type="radio" name="q12" value="b"> b) Partially committed</label>
+            <label><input type="radio" name="q12" value="c"> c) Committed</label>
+            <label><input type="radio" name="q12" value="d"> d) Terminated</label>
+            <div class="feedback" id="feedback12"></div>
+        </div>
+
+        <div class="question">
+            <p>13. Which of the following best describes the purpose of the Isolation property?</p>
+            <label><input type="radio" name="q13" value="a"> a) To ensure that transactions are executed in a specific order</label>
+            <label><input type="radio" name="q13" value="b"> b) To prevent interference between concurrent transactions</label>
+            <label><input type="radio" name="q13" value="c"> c) To maintain data integrity across multiple databases</label>
+            <label><input type="radio" name="q13" value="d"> d) To encrypt sensitive data during transactions</label>
+            <div class="feedback" id="feedback13"></div>
+        </div>
+
+        <div class="question">
+            <p>14. In the context of ACID properties, what does "cascadeless" mean?</p>
+            <label><input type="radio" name="q14" value="a"> a) Transactions can be rolled back without affecting other transactions</label>
+            <label><input type="radio" name="q14" value="b"> b) Data is consistently replicated across multiple servers</label>
+            <label><input type="radio" name="q14" value="c"> c) The database automatically resolves conflicts between transactions</label>
+            <label><input type="radio" name="q14" value="d"> d) Transactions are processed in a linear, non-branching manner</label>
+            <div class="feedback" id="feedback14"></div>
+        </div>
+
+        <div class="question">
+            <p>15. Which ACID property is most closely related to maintaining data integrity and preventing corruption?</p>
+            <label><input type="radio" name="q15" value="a"> a) Atomicity</label>
+            <label><input type="radio" name="q15" value="b"> b) Consistency</label>
+            <label><input type="radio" name="q15" value="c"> c) Isolation</label>
+            <label><input type="radio" name="q15" value="d"> d) Durability</label>
+            <div class="feedback" id="feedback15"></div>
+        </div>
+
+        <input type="submit" value="Submit Quiz">
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'a', q2: 'd', q3: 'b', q4: 'c', q5: 'd',
+            q6: 'b', q7: 'a', q8: 'd', q9: 'c', q10: 'b',
+            q11: 'd', q12: 'c', q13: 'b', q14: 'a', q15: 'b'
+        };
+
+        const feedbacks = {
+            q1: "ACID stands for Atomicity, Consistency, Isolation, and Durability.",
+            q2: "Atomicity ensures that a transaction is treated as a single, indivisible unit of work.",
+            q3: "Consistency ensures that only valid data following all rules and constraints is written to the database.",
+            q4: "Isolation ensures that concurrent execution of transactions results in a system state that would be obtained if transactions were executed sequentially.",
+            q5: "Durability ensures that once a transaction has been committed, it will remain so, even in the event of power loss, crashes, or errors.",
+            q6: "In the context of Atomicity, if a transaction is interrupted, all the changes made by the transaction are rolled back.",
+            q7: "Consistency indeed ensures that a transaction brings the database from one valid state to another.",
+            q8: "'Executing' is not a defined state of a transaction. The states are Active, Partially Committed, Failed, Aborted, and Committed.",
+            q9: "The Isolation property is mainly achieved through concurrency control mechanisms.",
+            q10: "Durability is typically implemented using transaction logs.",
+            q11: "Durability is responsible for ensuring that the effects of a committed transaction survive permanently.",
+            q12: "The state where a transaction has performed its last operation and the changes are saved to the database is called 'Committed'.",
+            q13: "The Isolation property prevents interference between concurrent transactions.",
+            q14: "'Cascadeless' in ACID context means that transactions can be rolled back without affecting other transactions.",
+            q15: "Consistency is most closely related to maintaining data integrity and preventing corruption."
+        };
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let score = 0;
+
+            for (let i = 1; i <= 15; i++) {
+                const questionName = `q${i}`;
+                const selectedAnswer = document.querySelector(`input[name="${questionName}"]:checked`);
+                const feedbackElement = document.getElementById(`feedback${i}`);
+                
+                if (selectedAnswer) {
+                    if (selectedAnswer.value === correctAnswers[questionName]) {
+                        score++;
+                        feedbackElement.innerHTML = `<p class="correct">Correct!</p>`;
+                    } else {
+                        feedbackElement.innerHTML = `<p class="incorrect">Incorrect. ${feedbacks[questionName]}</p>`;
+                    }
+                } else {
+                    feedbackElement.innerHTML = `<p class="incorrect">Not answered. ${feedbacks[questionName]}</p>`;
+                }
+                feedbackElement.style.display = 'block';
+            }
+
+            const percentage = (score / 15) * 100;
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<h2>Your Score: ${score}/15 (${percentage.toFixed(2)}%)</h2>`;
+        });
+    </script>
+</body></html>
