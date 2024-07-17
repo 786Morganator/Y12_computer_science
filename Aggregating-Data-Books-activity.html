@@ -83,29 +83,29 @@
         const questions = [
             {
                 question: "How many books has each author written?",
-                answer: `SELECT authors.name, COUNT(books.id) as book_count<BR>
-FROM authors<BR>
-LEFT JOIN books ON authors.id = books.author_id<BR>
-GROUP BY authors.id;`
+                answer: `SELECT authors.name, COUNT(books.id) as book_count
+FROM authors
+LEFT JOIN books ON authors.id = books.author_id
+GROUP BY authors.id, authors.name;`
             },
             {
                 question: "What is the average publication year of books for each author?",
-                answer: `SELECT authors.name, AVG(books.published_year) as avg_pub_year<BR>
-FROM authors<BR>
-INNER JOIN books ON authors.id = books.author_id<BR>
-GROUP BY authors.id;`
+                answer: `SELECT authors.name, ROUND(AVG(books.published_year), 2) as avg_pub_year
+FROM authors
+INNER JOIN books ON authors.id = books.author_id
+GROUP BY authors.id, authors.name;`
             },
             {
-                question: "Which authors have written more than one book?",
-                answer: `SELECT authors.name, COUNT(books.id) as book_count<BR>
-FROM authors<BR>
-INNER JOIN books ON authors.id = books.author_id<BR>
-GROUP BY authors.id<BR>
-HAVING book_count > 1;`
+                question: "Which authors have written more than two books?",
+                answer: `SELECT authors.name, COUNT(books.id) as book_count
+FROM authors
+INNER JOIN books ON authors.id = books.author_id
+GROUP BY authors.id, authors.name
+HAVING COUNT(books.id) > 2;`
             },
             {
                 question: "What are the earliest and latest publication years of books in our database?",
-                answer: `SELECT MIN(published_year) as earliest, MAX(published_year) as latest<BR>
+                answer: `SELECT MIN(published_year) as earliest, MAX(published_year) as latest
 FROM books;`
             }
         ];
