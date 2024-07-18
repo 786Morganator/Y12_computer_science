@@ -1,0 +1,218 @@
+<!DOCTYPE html><html><head><base href="https://websim.ai"><title>SQL Concatenation</title><style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;background-color:#f4f4f4;color:#333}.container{width:80%;margin:0 auto;padding:20px}h1,h2,h3{color:#333}h1{
+    text-align: center;
+    margin-bottom: 30px;
+    color: #60579D;
+}.slide{background-color:#fff;padding:20px;margin-bottom:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1)}.code-block{
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Courier New',Courier,monospace;
+    overflow-x: auto;
+    overflow-y: visible;
+    font-size: large;
+    color: #018E00;
+}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background-color:#f0f0f0}footer{text-align:center;padding:20px;background-color:#333;color:#fff}.exercise{background-color:#e6f7ff;padding:15px;border-radius:8px;margin-bottom:20px}.solution{display:none;background-color:#e6ffe6;padding:15px;border-radius:8px;margin-top:10px}.reveal-btn{background-color:#4CAF50;border:none;color:white;padding:10px 20px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;margin:4px 2px;cursor:pointer;border-radius:4px}p strong code {
+    font-size: large;
+    color: #CE2B2E;
+}
+.exerciseformat {
+    color: #B406C2;
+    padding-left: 28px;
+}
+</style><script>function toggleSolution(id) {
+    var solution = document.getElementById('solution-' + id);
+    var button = document.getElementById('btn-' + id);
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        button.innerHTML = 'Hide Solution';
+    } else {
+        solution.style.display = 'none';
+        button.innerHTML = 'Reveal Solution';
+    }
+}</script></head><body><div class="container"><h1>Mastering SQL Concatenation: Combining Data with Finesse</h1><div class="slide"><h2>What is Concatenation?</h2><ul><li>Combining data from multiple columns or strings into a single, unified string.</li><li>Think of it as joining puzzle pieces of text to form a complete picture.</li></ul><h2>Sample Table: <code>Employees</code></h2><table><thead><tr><th>employee_id</th><th>first_name</th><th>middle_name</th><th>last_name</th></tr></thead><tbody><tr><td>1</td><td>John</td><td>Doe</td><td>Smith</td></tr><tr><td>2</td><td>Jane</td><td>NULL</td><td>Doe</td></tr><tr><td>3</td><td>Peter</td><td>Michael</td><td>Jones</td></tr></tbody></table><h2>The CONCAT Function:</h2><ul><li><strong>Syntax:</strong> <code>CONCAT(string1, string2, ...)</code></li><li>Accepts two or more arguments (strings or column names) and combines them in the specified order.</li></ul><h3>Example &amp; Result:</h3><div class="code-block"><code>SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;</code></div><table><thead><tr><th>full_name</th></tr></thead><tbody><tr><td>John Smith</td></tr><tr><td>Jane Doe</td></tr><tr><td>Peter Jones</td></tr></tbody></table><h2>The Concatenation Operator (||):</h2><ul><li>An alternative to the <code>CONCAT</code> function, widely supported across different SQL dialects.</li><li><strong>Syntax:</strong> <code>string1 || string2 || ...</code></li></ul><h3>Example &amp; Result:</h3><div class="code-block"><code>SELECT first_name || ' ' || last_name AS full_name FROM employees;</code></div><table><thead><tr><th>full_name</th></tr></thead><tbody><tr><td>John Smith</td></tr><tr><td>Jane Doe</td></tr><tr><td>Peter Jones</td></tr></tbody></table><h2>Adding Spaces and Literals:</h2><ul><li>Include spaces and other literal characters within your concatenation to format the output.</li></ul><h3>Example &amp; Result:</h3><div class="code-block"><code>SELECT 'Employee ID: ' || employee_id || ', Name: ' || first_name || ' ' || last_name FROM employees;</code></div><table><thead><tr><th>Output</th></tr></thead><tbody><tr><td>Employee ID: 1, Name: John Smith</td></tr><tr><td>Employee ID: 2, Name: Jane Doe</td></tr><tr><td>Employee ID: 3, Name: Peter Jones</td></tr></tbody></table><h2>Handling NULL Values:</h2><ul><li>Concatenating with a NULL value generally results in a NULL output.</li><li>Use <code>COALESCE</code> function to replace NULLs with desired values during concatenation. <code>COALESCE</code> returns the first non-NULL value in a list of expressions. For example, <code>COALESCE(middle_name, '')</code> will return the middle name if it's not NULL, or an empty string if it is NULL.</li></ul><h3>Example &amp; Result:</h3><div class="code-block"><code>SELECT first_name || ' ' || COALESCE(middle_name, '') || ' ' || last_name FROM employees; </code></div><table><thead><tr><th>Output</th></tr></thead><tbody><tr><td>John Doe Smith</td></tr><tr><td>Jane Doe</td></tr><tr><td>Peter Michael Jones</td></tr></tbody></table><h2>Concatenating with Different Data Types:</h2><ul><li>Be mindful of data types! Implicit conversion might be required. This means when concatenating different data types (like numbers with strings), you may need to explicitly convert the non-string data to a string format. For example, concatenating a number directly might work in some databases due to implicit conversion, but it's safer and more portable to use explicit conversion functions like CAST():
+
+<ul>
+  <li><strong>CAST():</strong> A standard SQL function that converts a value from one data type to another. Syntax: <code>CAST(expression AS datatype)</code>. For example, <code>CAST(order_amount AS VARCHAR)</code> converts a numeric order amount to a string.</li>
+</ul>
+
+Using this function ensures your concatenation works consistently across different database systems and avoids potential errors or unexpected results.</li></ul><h3>Example &amp; Result: (Assuming <code>order_amount</code> is a numeric column in an <code>orders</code> table)</h3><div class="code-block"><code>SELECT 'Order Total: $' || CAST(order_amount AS VARCHAR) FROM orders;</code></div><p>(Result would depend on the data in the <code>orders</code> table, but would look something like this:)</p><table><thead><tr><th>Output</th></tr></thead><tbody><tr><td>Order Total: $125.50</td></tr><tr><td>Order Total: $30.00</td></tr></tbody></table><h2>Practice Exercises</h2><p>Try these exercises to test your understanding of SQL concatenation. Click the "Reveal Solution" button to see the answer.</p><div class="exercise">
+  <h3>Exercise 1:</h3>
+  <p>Given a table <code>customers</code> with the following data:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Alice</td>
+        <td>Johnson</td>
+        <td>alice@email.com</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Smith</td>
+        <td>bob@email.com</td>
+      </tr>
+      <tr>
+        <td>Charlie</td>
+        <td>Brown</td>
+        <td>charlie@email.com</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Here's the SQLite code to create and populate this table. You can try this in DB Browser for SQLite:</p>
+  <div class="code-block">
+<code>
+-- Create the customers table
+CREATE TABLE customers (
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT
+);
+
+-- Insert the sample data
+INSERT INTO customers (first_name, last_name, email) VALUES
+    ('Alice', 'Johnson', 'alice@email.com'),
+    ('Bob', 'Smith', 'bob@email.com'),
+    ('Charlie', 'Brown', 'charlie@email.com');
+</code>
+</div>
+  <p><strong>Write a query to concatenate these into a single column named <code>customer_info</code> in the format:&nbsp;</strong></p>
+  <p><strong class="exerciseformat">"LastName, FirstName (Email)"</strong></p>
+  <button id="btn-1" class="reveal-btn" onclick="toggleSolution(1)">Reveal Solution</button>
+  <div id="solution-1" class="solution">
+    <h4>Solution:</h4>
+    <div class="code-block">
+      <code>SELECT last_name || ', ' || first_name || ' (' || email || ')' AS customer_info
+FROM customers;</code>
+    </div>
+    <p>Result:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>customer_info</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Johnson, Alice (alice@email.com)</td>
+        </tr>
+        <tr>
+          <td>Smith, Bob (bob@email.com)</td>
+        </tr>
+        <tr>
+          <td>Brown, Charlie (charlie@email.com)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div><div class="exercise">
+  <h3>Exercise 2:</h3>
+  <p>Using the <code>employees</code> table with the following data:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>employee_id</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>John</td>
+        <td>Doe</td>
+        <td>50000</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Jane</td>
+        <td>Smith</td>
+        <td>60000</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Mike</td>
+        <td>Johnson</td>
+        <td>55000</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Here's the SQLite code to create and populate this table. You can try this in DB Browser for SQLite:</p>
+  <div class="code-block">
+    <code>
+-- Create the employees table
+CREATE TABLE employees (
+    employee_id INTEGER PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    salary INTEGER
+);
+
+-- Insert the sample data
+INSERT INTO employees (employee_id, first_name, last_name, salary) VALUES
+    (1, 'John', 'Doe', 50000),
+    (2, 'Jane', 'Smith', 60000),
+    (3, 'Mike', 'Johnson', 55000);
+    </code>
+  </div>
+  <p><strong>Write a query to create a formatted string that says&nbsp;</strong></p>
+  <p><strong class="exerciseformat">"Employee [ID] - [Full Name] earns $[Salary]"</strong></p>
+  <button id="btn-2" class="reveal-btn" onclick="toggleSolution(2)">Reveal Solution</button>
+  <div id="solution-2" class="solution">
+    <h4>Solution:</h4>
+    <div class="code-block">
+      <code>SELECT 'Employee ' || employee_id || ' - ' || first_name || ' ' || last_name || ' earns $' || CAST(salary AS VARCHAR) AS employee_info
+FROM employees;</code>
+    </div>
+    <p>Result:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>employee_info</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Employee 1 - John Doe earns $50000</td>
+        </tr>
+        <tr>
+          <td>Employee 2 - Jane Smith earns $60000</td>
+        </tr>
+        <tr>
+          <td>Employee 3 - Mike Johnson earns $55000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div><div class="exercise"><h3>Exercise 3:</h3><p>Given a table <code>products</code> with the following data:</p><table><thead><tr><th>product_name</th><th>category</th><th>price</th></tr></thead><tbody><tr><td>Laptop</td><td>Electronics</td><td>999.99</td></tr><tr><td>T-shirt</td><td>Clothing</td><td>19.99</td></tr><tr><td>Book</td><td>Literature</td><td>9.99</td></tr></tbody></table>
+
+<p>Here's the SQLite code to create and populate this table. You can try this in DB Browser for SQLite:</p>
+
+<div class="code-block">
+<code>
+-- Create the products table
+CREATE TABLE products (
+    product_name TEXT,
+    category TEXT,
+    price REAL
+);
+
+-- Insert the sample data
+INSERT INTO products (product_name, category, price) VALUES
+    ('Laptop', 'Electronics', 999.99),
+    ('T-shirt', 'Clothing', 19.99),
+    ('Book', 'Literature', 9.99);
+</code>
+</div>
+
+<p><strong>Write a query to concatenate these into a single column named <code>product_description</code> in the format:&nbsp;</strong></p>
+<p><strong class="exerciseformat">"Product: [Name] (Category: [Category]) - Price: $[Price]"</strong></p>
+<button id="btn-3" class="reveal-btn" onclick="toggleSolution(3)">Reveal Solution</button><div id="solution-3" class="solution"><h4>Solution:</h4><div class="code-block"><code>SELECT 'Product: ' || product_name || ' (Category: ' || category || ') - Price: $' || CAST(price AS VARCHAR) AS product_description
+FROM products;</code></div><p>Result:</p><table><thead><tr><th>product_description</th></tr></thead><tbody><tr><td>Product: Laptop (Category: Electronics) - Price: $999.99</td></tr><tr><td>Product: T-shirt (Category: Clothing) - Price: $19.99</td></tr><tr><td>Product: Book (Category: Literature) - Price: $9.99</td></tr></tbody></table></div></div></div></div><footer><p>Practice Makes Perfect!</p><p>SQL Concatenation Mastery</p></footer></body></html>
