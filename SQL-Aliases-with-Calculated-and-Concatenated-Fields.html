@@ -1,0 +1,462 @@
+<!DOCTYPE html><html><head><base href="https://codemastery.ai/sql-tutorials/">
+<title>SQL Aliases with Calculated and Concatenated Fields</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  h1, h2 {
+    color: #2c3e50;
+    font-style: normal;
+    font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", serif;
+  }
+  code {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: large;
+  }
+ .code-block {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            white-space: pre;
+            overflow-x: auto;
+        }
+  .exercise {
+    background-color: #e6f3ff;
+    border-left: 5px solid #3498db;
+    padding: 15px;
+    margin: 20px 0;
+  }
+  .tip {
+    background-color: #fff7e6;
+    border-left: 5px solid #f39c12;
+    padding: 15px;
+    margin: 20px 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    background-color: #F4FDFF;
+  }
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+        .keyword { color: #0000FF; }
+        .comment { color: #008000; }
+        .string { color: #A31515; }
+</style>
+</head>
+<body>
+  <h1>SQL Aliases with Calculated and Concatenated Fields</h1>
+  
+  <p>SQL aliases are used to give a table or a column a temporary name. They're particularly useful when working with calculated fields or when concatenating multiple columns. Let's explore how to use aliases effectively in these scenarios.</p>
+
+  <h2>Sample Data</h2>
+
+  <p>Let's use the following sample data for our examples:</p>
+
+  <h3>Products Table</h3>
+  <table>
+    <tbody><tr>
+      <th>product_id</th>
+      <th>product_name</th>
+      <th>unit_price</th>
+      <th>units_in_stock</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Chai</td>
+      <td>18.00</td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Chang</td>
+      <td>19.00</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Aniseed Syrup</td>
+      <td>10.00</td>
+      <td>13</td>
+    </tr>
+  </tbody></table>
+
+  <h3>Employees Table</h3>
+  <table>
+    <tbody><tr>
+      <th>employee_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>hire_date</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Nancy</td>
+      <td>Davolio</td>
+      <td>2010-05-01</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Andrew</td>
+      <td>Fuller</td>
+      <td>2012-08-14</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Janet</td>
+      <td>Leverling</td>
+      <td>2011-04-01</td>
+    </tr>
+  </tbody></table>
+
+  <h2>1. Aliases with Calculated Fields</h2>
+  
+  <p>When performing calculations in SQL, it's often helpful to give the resulting column a meaningful name using an alias.</p>
+
+  <code>
+SELECT 
+    product_name,
+    unit_price,
+    units_in_stock,
+    unit_price * units_in_stock AS total_value
+FROM 
+    products;
+  </code>
+
+  <p>This query would result in:</p>
+
+  <table>
+    <tbody><tr>
+      <th>product_name</th>
+      <th>unit_price</th>
+      <th>units_in_stock</th>
+      <th>total_value</th>
+    </tr>
+    <tr>
+      <td>Chai</td>
+      <td>18.00</td>
+      <td>39</td>
+      <td>702.00</td>
+    </tr>
+    <tr>
+      <td>Chang</td>
+      <td>19.00</td>
+      <td>17</td>
+      <td>323.00</td>
+    </tr>
+    <tr>
+      <td>Aniseed Syrup</td>
+      <td>10.00</td>
+      <td>13</td>
+      <td>130.00</td>
+    </tr>
+  </tbody></table>
+
+  <p>In this example, we've used the alias <code>total_value</code> for the calculated field.</p>
+
+  <h2>2. Aliases with Concatenated Fields</h2>
+  
+  <p>Aliases are also useful when concatenating fields to create a new column.</p>
+
+  <code>
+SELECT 
+    first_name,
+    last_name,
+    CONCAT(first_name, ' ', last_name) AS full_name
+FROM 
+    employees;
+  </code>
+
+  <p>This query would result in:</p>
+
+  <table>
+    <tbody><tr>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>full_name</th>
+    </tr>
+    <tr>
+      <td>Nancy</td>
+      <td>Davolio</td>
+      <td>Nancy Davolio</td>
+    </tr>
+    <tr>
+      <td>Andrew</td>
+      <td>Fuller</td>
+      <td>Andrew Fuller</td>
+    </tr>
+    <tr>
+      <td>Janet</td>
+      <td>Leverling</td>
+      <td>Janet Leverling</td>
+    </tr>
+  </tbody></table>
+
+  <p>Here, we've concatenated <code>first_name</code> and <code>last_name</code> and given the result an alias of <code>full_name</code>.</p>
+
+  <h2>3. Complex Calculations with Aliases</h2>
+
+  <p>Aliases can make complex calculations more readable:</p>
+
+  <code>
+SELECT 
+    order_id,
+    quantity,
+    unit_price,
+    discount,
+    (quantity * unit_price * (1 - discount)) AS net_sale_amount
+FROM 
+    order_details;
+  </code>
+
+  <div class="tip">
+    <strong>Tip:</strong> Using aliases for complex calculations not only makes your SQL more readable but also allows you to reference the calculation in other parts of your query, such as in a WHERE or HAVING clause.
+  </div>
+
+  <h2>4. Aliases in Joins</h2>
+
+  <p>Aliases are particularly useful in joins to create short forms for tables which make long joins easier to read :</p>
+
+  <code>
+<pre class="code-block"><code><span class="keyword">SELECT</span>
+    c.name <span class="keyword">AS</span> customer_name,         <span class="comment">-- Column alias</span>
+    o.date <span class="keyword">AS</span> order_date,            <span class="comment">-- Column alias</span>
+    (o.amount * 1.1) <span class="keyword">AS</span> total_with_tax   <span class="comment">-- Column alias for calculated field</span>
+<span class="keyword">FROM</span>
+    customers <span class="keyword">AS</span> c   <span class="comment">-- Table alias</span>
+<span class="keyword">JOIN</span>
+    orders <span class="keyword">AS</span> o      <span class="comment">-- Table alias</span>
+    <span class="keyword">ON</span> c.id = o.customer_id
+<span class="keyword">WHERE</span>
+    c.country = <span class="string">'USA'</span>
+<span class="keyword">ORDER BY</span>
+    customer_name,   <span class="comment">-- Using column alias</span>
+    order_date       <span class="comment">-- Using column alias</span></code></pre>
+</code>
+
+  <h2>Practice Exercise</h2>
+
+  <div class="exercise">
+  <h3>Practice Exercises</h3>
+  <p>Create the tables and insert the data in DBbrowser and attempt the queries below in DBBrowser. This hands-on approach will help you better understand how SQL aliases work with calculated and concatenated fields. Here's how to set up your database:</p>
+
+  <h4>Sample Tables</h4>
+
+  <h5>Employees Table</h5>
+  <table>
+    <tbody><tr>
+      <th>employee_id</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>hire_date</th>
+      <th>salary</th>
+      <th>department_id</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>John</td>
+      <td>Doe</td>
+      <td>2015-03-15</td>
+      <td>50000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Jane</td>
+      <td>Smith</td>
+      <td>2018-07-01</td>
+      <td>60000</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Mike</td>
+      <td>Johnson</td>
+      <td>2020-01-10</td>
+      <td>55000</td>
+      <td>1</td>
+    </tr>
+  </tbody></table>
+
+  <h5>Departments Table</h5>
+  <table>
+    <tbody><tr>
+      <th>department_id</th>
+      <th>department_name</th>
+      <th>location</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>HR</td>
+      <td>New York</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>IT</td>
+      <td>San Francisco</td>
+    </tr>
+  </tbody></table>
+
+  <h5>Products Table</h5>
+  <table>
+    <tbody><tr>
+      <th>product_id</th>
+      <th>product_name</th>
+      <th>unit_price</th>
+      <th>units_in_stock</th>
+      <th>category_id</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Laptop</td>
+      <td>1000</td>
+      <td>50</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Mouse</td>
+      <td>20</td>
+      <td>100</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Desk</td>
+      <td>200</td>
+      <td>30</td>
+      <td>2</td>
+    </tr>
+  </tbody></table>
+
+  <h5>Categories Table</h5>
+  <table>
+    <tbody><tr>
+      <th>category_id</th>
+      <th>category_name</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Electronics</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Furniture</td>
+    </tr>
+  </tbody></table>
+
+  <div class="exercise-item">
+  <p><strong>Exercise 1:</strong> Write a query that concatenates the first_name and last_name as full_name for all employees.</p>
+  <textarea rows="5" cols="50" placeholder="Write your SQL query here..."></textarea>
+  <details>
+    <summary>Show Solution</summary>
+    <code>
+SELECT 
+  CONCAT(first_name, ' ', last_name) AS full_name <br>
+FROM 
+  employees;
+    </code>
+  </details>
+</div>
+
+  <div class="exercise-item">
+    <p><strong>Exercise 2:</strong> Write a query that calculates a 5% raise on the current salary as new_salary for all employees, and alias the result.</p>
+    <textarea rows="5" cols="50" placeholder="Write your SQL query here..."></textarea>
+    <details>
+      <summary>Show Solution</summary>
+      <code>
+SELECT 
+  employee_id,
+  salary AS current_salary,
+  salary * 1.05 AS new_salary <br>
+FROM 
+  employees;
+      </code>
+    </details>
+  </div>
+
+  <div class="exercise-item">
+    <p><strong>Exercise 3:</strong> Write a query that joins the employees and departments tables, showing each employee's full name, department name, and location.</p>
+    <textarea rows="5" cols="50" placeholder="Write your SQL query here..."></textarea>
+    <details>
+      <summary>Show Solution</summary>
+      <code>
+SELECT 
+  CONCAT(employees.first_name, ' ', employees.last_name) AS full_name,
+  departments.department_name,
+  departments.location <br>
+FROM 
+  employees <br>
+JOIN 
+  departments ON employees.department_id = departments.department_id;
+</code>
+    </details>
+  </div>
+
+  <div class="exercise-item">
+    <p><strong>Exercise 4:</strong> Create a query that calculates the total value of inventory for each product (unit_price * units_in_stock) and labels it as inventory_value.</p>
+    <textarea rows="5" cols="50" placeholder="Write your SQL query here..."></textarea>
+    <details>
+      <summary>Show Solution</summary>
+      <code>
+SELECT 
+  product_name,
+  unit_price,
+  units_in_stock,
+  (unit_price * units_in_stock) AS inventory_value <br>
+FROM 
+  products; <br>
+      </code>
+    </details>
+  </div>
+
+  <div class="exercise-item">
+    <p><strong>Exercise 5:</strong> Write a query that concatenates the product name with its category name, separated by a hyphen, and aliases it as product_category.</p>
+    <textarea rows="5" cols="50" placeholder="Write your SQL query here..."></textarea>
+    <details>
+      <summary>Show Solution</summary>
+      <code>
+SELECT 
+    CONCAT(products.product_name, ' - ', categories.category_name) AS product_category <br>
+FROM 
+    Products AS products <br>
+JOIN 
+    Categories AS categories 
+    ON products.category_id = categories.category_id;
+      </code>
+    </details>
+  </div>
+</div>
+
+  <p></p>
+
+  <p>Happy querying!</p>
+
+  <p></p>
+
+</body></html>
