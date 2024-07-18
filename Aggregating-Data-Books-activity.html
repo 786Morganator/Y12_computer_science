@@ -83,10 +83,10 @@
         const questions = [
             {
                 question: "How many books has each author written?",
-                answer: `SELECT authors.name COUNT(books.id) as book_count
-    FROM authors
-    LEFT JOIN books ON authors.id = books.author_id
-    GROUP BY authors.id, authors.name;`
+                answer: `SELECT authors.name, COUNT(books.id) as book_count
+        FROM authors
+        LEFT JOIN books ON authors.id = books.author_id
+        GROUP BY authors.id, authors.name;`
             },
             {
                 question: "What is the average publication year of books for each author?",
