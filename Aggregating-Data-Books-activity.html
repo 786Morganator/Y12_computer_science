@@ -90,7 +90,7 @@ GROUP BY authors.id, authors.name;`
             },
             {
                 question: "What is the average publication year of books for each author?",
-                answer: `SELECT authors.name, ROUND(AVG(books.published_year), 2) as avg_pub_year
+                answer: `SELECT authors.name, AVG(books.published_year) as avg_pub_year
 FROM authors
 INNER JOIN books ON authors.id = books.author_id
 GROUP BY authors.id, authors.name;`
