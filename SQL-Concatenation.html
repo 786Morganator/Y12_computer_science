@@ -20,9 +20,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
     color: #B406C2;
     padding-left: 28px;
 }
-.code{
-        white-space: pre-line;
-    }
+
 </style><script>function toggleSolution(id) {
     var solution = document.getElementById('solution-' + id);
     var button = document.getElementById('btn-' + id);
@@ -70,7 +68,7 @@ Using this function ensures your concatenation works consistently across differe
   </table>
   <p>Here's the SQLite code to create and populate this table. You can try this in DB Browser for SQLite:</p>
   <div class="code-block">
-<code>
+<pre></pre><code>
 -- Create the customers table
 CREATE TABLE customers (
     first_name TEXT,
@@ -84,7 +82,7 @@ INSERT INTO customers (first_name, last_name, email) VALUES
     ('Bob', 'Smith', 'bob@email.com'),
     ('Charlie', 'Brown', 'charlie@email.com
 
-</code>
+</code></pre>
 </div>
   <p><strong>Write a query to concatenate these into a single column named <code>customer_info</code> in the format:&nbsp;</strong></p>
   <p><strong class="exerciseformat">"LastName, FirstName (Email)"</strong></p>
