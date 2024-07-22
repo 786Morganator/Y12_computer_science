@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><base href="https://websim.ai"><title>SQL Concatenation</title><style>
+><!DOCTYPE html><html><head><base href="https://websim.ai"><title>SQL Concatenation</title><style>
 body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;background-color:#f4f4f4;color:#333}.container{width:80%;margin:0 auto;padding:20px}h1,h2,h3{color:#333}h1{
     text-align: center;
     margin-bottom: 30px;
@@ -148,7 +148,7 @@ FROM customers;</code>
   </table>
   <p>Here's the SQLite code to create and populate this table. You can try this in DB Browser for SQLite:</p>
   <div class="code-block">
-    <code>
+   <pre> <code>
 -- Create the employees table
 CREATE TABLE employees (
     employee_id INTEGER PRIMARY KEY,
@@ -162,7 +162,7 @@ INSERT INTO employees (employee_id, first_name, last_name, salary) VALUES
     (1, 'John', 'Doe', 50000),
     (2, 'Jane', 'Smith', 60000),
     (3, 'Mike', 'Johnson', 55000);
-    </code>
+    </code></pre>
   </div>
   <p><strong>Write a query to create a formatted string that says&nbsp;</strong></p>
   <p><strong class="exerciseformat">"Employee [ID] - [Full Name] earns $[Salary]"</strong></p>
@@ -198,7 +198,7 @@ FROM employees;</code>
 <p>Here's the SQLite code to create and populate this table. You can try this in DB Browser for SQLite:</p>
 
 <div class="code-block">
-<code>
+<pre><code>
 -- Create the products table
 CREATE TABLE products (
     product_name TEXT,
@@ -211,7 +211,7 @@ INSERT INTO products (product_name, category, price) VALUES
     ('Laptop', 'Electronics', 999.99),
     ('T-shirt', 'Clothing', 19.99),
     ('Book', 'Literature', 9.99);
-</code>
+</code></pre>
 </div>
 
 <p><strong>Write a query to concatenate these into a single column named <code>product_description</code> in the format:&nbsp;</strong></p>
