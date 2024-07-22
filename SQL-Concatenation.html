@@ -68,7 +68,7 @@ Using this function ensures your concatenation works consistently across differe
   <p>Here's the SQLite code to create and populate this table. You can try this in DB Browser for SQLite:</p>
   <div class="code-block">
 <code>
--- Create the customers table
+<p>-- Create the customers table
 CREATE TABLE customers (
     first_name TEXT,
     last_name TEXT,
@@ -79,7 +79,8 @@ CREATE TABLE customers (
 INSERT INTO customers (first_name, last_name, email) VALUES
     ('Alice', 'Johnson', 'alice@email.com'),
     ('Bob', 'Smith', 'bob@email.com'),
-    ('Charlie', 'Brown', 'charlie@email.com');
+    ('Charlie', 'Brown', 'charlie@email.com
+</p>
 </code>
 </div>
   <p><strong>Write a query to concatenate these into a single column named <code>customer_info</code> in the format:&nbsp;</strong></p>
