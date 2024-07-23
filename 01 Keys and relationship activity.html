@@ -167,37 +167,89 @@
     </div>
 
     <div class="task">
-        <h3>4. Add a CHECK constraint</h3>
-        <p>A CHECK constraint allows us to enforce a condition on the values in a column. We'll add a constraint to ensure the PublicationYear in the Books table is not in the future.</p>
-        <ol>
+        <h2>1. Insert sample data</h2>
+        <ul>
             <li>Click on the "Execute SQL" tab</li>
-            <li>We'll use the following SQL command to add the constraint:
-                <pre><code>ALTER TABLE Books
-ADD CONSTRAINT check_publication_year
-CHECK (PublicationYear <= strftime('%Y', 'now'));</code></pre>
-            </li>
-            <li>Let's break down this command:
-                <ul>
-                    <li><code>ALTER TABLE Books</code>: This tells SQLite we want to modify the Books table</li>
-                    <li><code>ADD CONSTRAINT check_publication_year</code>: We're adding a new constraint named "check_publication_year"</li>
-                    <li><code>CHECK (PublicationYear <= strftime('%Y', 'now'))</code>: This is the actual check. It ensures the PublicationYear is less than or equal to the current year</li>
-                    <li><code>strftime('%Y', 'now')</code> is a SQLite function that returns the current year</li>
-                </ul>
-            </li>
-            <li>Copy and paste the entire ALTER TABLE statement into the SQL editor</li>
+            <li>Write INSERT statements to add at least 3 records to each table</li>
+            <li>Click the "Execute SQL" button after each INSERT statement or group of statements</li>
+            <li>After inserting data into each table, click the "Write Changes" button</li>
+        </ul>
+    </div>
+
+    <div class="task">
+        <h2>2. Write and execute queries</h2>
+        <ul>
+            <li>Click on the "Execute SQL" tab</li>
+            <li>Write a query to display all books with their authors' names</li>
+            <li>Click the "Execute SQL" button and view the results</li>
+            <li>Write a query to show all active loans (where ReturnDate is NULL) with book titles and patron names</li>
+            <li>Click the "Execute SQL" button and view the results</li>
+        </ul>
+    </div>
+
+    <div class="task">
+        <h2>3. Create an index</h2>
+        <p>An index helps to speed up searches on a specific column. We'll create an index on the Email column in the Patrons table.</p>
+        <ul>
+            <li>Click on the "Execute SQL" tab</li>
+            <li>Use the following SQL command to create the index:</li>
+        </ul>
+        <pre><code>CREATE INDEX idx_patron_email ON Patrons(Email);</code></pre>
+        <p>Let's break down this command:</p>
+        <ul>
+            <li>CREATE INDEX: This tells SQLite we want to create a new index</li>
+            <li>idx_patron_email: This is the name we're giving to our index. It's a good practice to use a descriptive name</li>
+            <li>ON Patrons(Email): This specifies that the index is on the Email column of the Patrons table</li>
+        </ul>
+        <ul>
+            <li>Copy and paste the CREATE INDEX statement into the SQL editor</li>
             <li>Click the "Execute SQL" button</li>
             <li>Click the "Write Changes" button to save this modification to your database</li>
-            <li>To test the constraint, try inserting a book with a future year:
-                <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
+        </ul>
+        <p>To verify the index was created:</p>
+        <ul>
+            <li>Go to the "Browse Data" tab</li>
+            <li>Select "Patrons" from the table dropdown</li>
+            <li>Click on the "Indexes" sub-tab</li>
+            <li>You should see your new index listed</li>
+        </ul>
+    </div>
+
+    <div class="task">
+        <h2>4. Add a CHECK constraint using a trigger</h2>
+        <p>We'll create a trigger that enforces the condition that the PublicationYear in the Books table is not in the future.</p>
+        <ul>
+            <li>Click on the "Execute SQL" tab</li>
+            <li>Use the following SQL command to create the trigger:</li>
+        </ul>
+        <pre><code>CREATE TRIGGER check_publication_year
+BEFORE INSERT ON Books
+BEGIN
+    SELECT CASE 
+        WHEN NEW.PublicationYear > strftime('%Y', 'now')
+        THEN RAISE(ABORT, 'Publication year cannot be in the future')
+    END;
+END;</code></pre>
+        <p>Let's break down this command:</p>
+        <ul>
+            <li>CREATE TRIGGER check_publication_year: This creates a new trigger named "check_publication_year"</li>
+            <li>BEFORE INSERT ON Books: This specifies that the trigger should run before any INSERT operation on the Books table</li>
+            <li>The SELECT CASE statement checks if the new PublicationYear is greater than the current year</li>
+            <li>If it is, it raises an error and aborts the INSERT operation</li>
+        </ul>
+        <ul>
+            <li>Copy and paste the entire CREATE TRIGGER statement into the SQL editor</li>
+            <li>Click the "Execute SQL" button</li>
+            <li>Click the "Write Changes" button to save this modification to your database</li>
+        </ul>
+        <p>To test the trigger, try inserting a book with a future year:</p>
+        <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
 VALUES ('Future Book', 2099, 1);</code></pre>
-                This should fail due to the CHECK constraint.
-            </li>
-            <li>Now try inserting a book with a valid year:
-                <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
+        <p>This should fail due to the trigger.</p>
+        <p>Now try inserting a book with a valid year:</p>
+        <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
 VALUES ('Current Book', 2023, 1);</code></pre>
-                This should succeed.
-            </li>
-        </ol>
+        <p>This should succeed.</p>
     </div>
 
     <h2>Bonus Challenge</h2>
