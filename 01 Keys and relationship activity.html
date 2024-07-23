@@ -217,7 +217,7 @@
 
 <div class="task">
     <h2>4. Add a CHECK constraint using a trigger</h2>
-    <p>We'll create a trigger that enforces the condition that the PublicationYear in the Books table is not beyond 2030.</p>
+    <p>We'll create a trigger that enforces the condition that the PublicationYear in the Books table is not beyond 2024.</p>
     <ul>
         <li>Click on the "Execute SQL" tab</li>
         <li>Use the following SQL command to create the trigger:</li>
@@ -226,15 +226,15 @@
 BEFORE INSERT ON Books
 BEGIN
     SELECT CASE 
-        WHEN NEW.PublicationYear > 2030
-        THEN RAISE(ABORT, 'Publication year cannot be later than 2030')
+        WHEN NEW.PublicationYear > 2024
+        THEN RAISE(ABORT, 'Publication year cannot be later than 2024')
     END;
 END;</code></pre>
     <p>Let's break down this command:</p>
     <ul>
         <li>CREATE TRIGGER check_publication_year: This creates a new trigger named "check_publication_year"</li>
         <li>BEFORE INSERT ON Books: This specifies that the trigger should run before any INSERT operation on the Books table</li>
-        <li>The SELECT CASE statement checks if the new PublicationYear is greater than 2030</li>
+        <li>The SELECT CASE statement checks if the new PublicationYear is greater than 2024</li>
         <li>If it is, it raises an error and aborts the INSERT operation</li>
     </ul>
     <ul>
@@ -255,6 +255,57 @@ VALUES ('Future Book', 2029, 1);</code></pre>
 VALUES ('Current Book', 2023, 1);</code></pre>
     <p>This should also succeed.</p>
 </div>
+
+    <div class="task">
+    <h2>4. Add a CHECK constraint</h2>
+    <p>We'll add a CHECK constraint to ensure the PublicationYear in the Books table is not beyond 2099. Since SQLite doesn't support adding constraints with ALTER TABLE, we'll create a new table with the constraint and replace the old one.</p>
+    <ul>
+        <li>Click on the "Execute SQL" tab</li>
+        <li>Use the following SQL commands to create a new Books table with the constraint:</li>
+    </ul>
+    <pre><code>-- Create new table with constraint
+CREATE TABLE Books_New (
+    BookID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Title TEXT NOT NULL,
+    PublicationYear INTEGER CHECK (PublicationYear <= 2099),
+    AuthorID INTEGER,
+    FOREIGN KEY (AuthorID) REFERENCES Authors(AuthorID)
+);
+
+-- Copy data from the old table to the new one
+INSERT INTO Books_New SELECT * FROM Books;
+
+-- Drop the old table
+DROP TABLE Books;
+
+-- Rename the new table to the original name
+ALTER TABLE Books_New RENAME TO Books;</code></pre>
+    <p>Let's break down these commands:</p>
+    <ul>
+        <li>We create a new table with the same structure as the original Books table, adding the CHECK constraint.</li>
+        <li>We copy all data from the old table to the new one.</li>
+        <li>We drop the old table.</li>
+        <li>We rename the new table to 'Books'.</li>
+    </ul>
+    <ul>
+        <li>Copy and paste the entire SQL statement block into the SQL editor</li>
+        <li>Click the "Execute SQL" button</li>
+        <li>Click the "Write Changes" button to save this modification to your database</li>
+    </ul>
+    <p>To test the constraint, try inserting a book with a year beyond 2099:</p>
+    <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
+VALUES ('Far Future Book', 2100, 1);</code></pre>
+    <p>This should fail due to the CHECK constraint.</p>
+    <p>Now try inserting a book with a valid year:</p>
+    <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
+VALUES ('Future Book', 2099, 1);</code></pre>
+    <p>This should succeed.</p>
+    <p>And of course, current and past years should also work:</p>
+    <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
+VALUES ('Current Book', 2023, 1);</code></pre>
+    <p>This should also succeed.</p>
+</div>
+    
     <h2>Bonus Challenge</h2>
     <p>Implement a many-to-many relationship between Books and Authors (for books with multiple authors). You'll need to create a junction table and modify your queries accordingly. Remember to write changes after creating the new table and inserting data.</p>
 
