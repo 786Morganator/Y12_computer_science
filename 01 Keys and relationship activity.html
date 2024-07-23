@@ -57,16 +57,51 @@
         <h2>Use the following resource for learning dbbrowser</h2>
     <a href="https://github.com/sqlitebrowser/sqlitebrowser/wiki">Home · sqlitebrowser/sqlitebrowser Wiki · GitHub</a><br>
     <h2>Instructions</h2>
+
     <div class="task">
-        <h3>1. Create a new database</h3>
+        <h3>2. Create tables</h3>
+        <p>For each table:</p>
         <ol>
-            <li>Open DB Browser for SQLite</li>
-            <li>Click "New Database" in the toolbar (icon looks like a blank page) or go to File > New Database</li>
-            <li>Navigate to your desired save location</li>
-            <li>Name your database file "library.db"</li>
-            <li>Click "Save"</li>
-            <li>If prompted to create a table, click "Cancel"</li>
+            <li>Click on the "Execute SQL" tab</li>
+            <li>Paste the CREATE TABLE statement into the SQL editor</li>
+            <li>Click the "Execute SQL" button (play icon)</li>
+            <li>Click the "Write Changes" button (floppy disk icon) in the toolbar</li>
         </ol>
+
+        <h4>Authors Table</h4>
+        <pre><code>CREATE TABLE Authors (
+    AuthorID INTEGER PRIMARY KEY AUTOINCREMENT,
+    FirstName TEXT NOT NULL,
+    LastName TEXT NOT NULL
+);</code></pre>
+
+        <h4>Books Table</h4>
+        <pre><code>CREATE TABLE Books (
+    BookID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Title TEXT NOT NULL,
+    PublicationYear INTEGER CHECK (PublicationYear <= 2024),
+    AuthorID INTEGER,
+    FOREIGN KEY (AuthorID) REFERENCES Authors(AuthorID)
+);</code></pre>
+
+        <h4>Patrons Table</h4>
+        <pre><code>CREATE TABLE Patrons (
+    PatronID INTEGER PRIMARY KEY AUTOINCREMENT,
+    FirstName TEXT NOT NULL,
+    LastName TEXT NOT NULL,
+    Email TEXT UNIQUE
+);</code></pre>
+
+        <h4>Loans Table</h4>
+        <pre><code>CREATE TABLE Loans (
+    LoanID INTEGER PRIMARY KEY AUTOINCREMENT,
+    BookID INTEGER,
+    PatronID INTEGER,
+    LoanDate DATE NOT NULL,
+    ReturnDate DATE,
+    FOREIGN KEY (BookID) REFERENCES Books(BookID),
+    FOREIGN KEY (PatronID) REFERENCES Patrons(PatronID)
+);</code></pre>
     </div>
 
  <div class="task">
