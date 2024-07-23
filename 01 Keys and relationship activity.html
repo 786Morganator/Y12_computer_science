@@ -217,7 +217,7 @@
 
 <div class="task">
     <h2>4. Add a CHECK constraint using a trigger</h2>
-    <p>We'll create a trigger that enforces the condition that the PublicationYear in the Books table is not beyond 2099.</p>
+    <p>We'll create a trigger that enforces the condition that the PublicationYear in the Books table is not beyond 2030.</p>
     <ul>
         <li>Click on the "Execute SQL" tab</li>
         <li>Use the following SQL command to create the trigger:</li>
@@ -226,15 +226,15 @@
 BEFORE INSERT ON Books
 BEGIN
     SELECT CASE 
-        WHEN NEW.PublicationYear > 2099
-        THEN RAISE(ABORT, 'Publication year cannot be later than 2099')
+        WHEN NEW.PublicationYear > 2030
+        THEN RAISE(ABORT, 'Publication year cannot be later than 2030')
     END;
 END;</code></pre>
     <p>Let's break down this command:</p>
     <ul>
         <li>CREATE TRIGGER check_publication_year: This creates a new trigger named "check_publication_year"</li>
         <li>BEFORE INSERT ON Books: This specifies that the trigger should run before any INSERT operation on the Books table</li>
-        <li>The SELECT CASE statement checks if the new PublicationYear is greater than 2099</li>
+        <li>The SELECT CASE statement checks if the new PublicationYear is greater than 2030</li>
         <li>If it is, it raises an error and aborts the INSERT operation</li>
     </ul>
     <ul>
@@ -242,13 +242,13 @@ END;</code></pre>
         <li>Click the "Execute SQL" button</li>
         <li>Click the "Write Changes" button to save this modification to your database</li>
     </ul>
-    <p>To test the trigger, try inserting a book with a year beyond 2099:</p>
+    <p>To test the trigger, try inserting a book with a year beyond 2031:</p>
     <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
-VALUES ('Far Future Book', 2100, 1);</code></pre>
+VALUES ('Far Future Book', 2031, 1);</code></pre>
     <p>This should fail due to the trigger.</p>
     <p>Now try inserting a book with a valid year:</p>
     <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
-VALUES ('Future Book', 2099, 1);</code></pre>
+VALUES ('Future Book', 2029, 1);</code></pre>
     <p>This should succeed.</p>
     <p>And of course, current and past years should also work:</p>
     <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
