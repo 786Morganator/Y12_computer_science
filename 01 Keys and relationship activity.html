@@ -258,7 +258,7 @@ VALUES ('Current Book', 2023, 1);</code></pre>
 
     <div class="task">
     <h2>4. Add a CHECK constraint</h2>
-    <p>We'll add a CHECK constraint to ensure the PublicationYear in the Books table is not beyond 2099. Since SQLite doesn't support adding constraints with ALTER TABLE, we'll create a new table with the constraint and replace the old one.</p>
+    <p>We'll add a CHECK constraint to ensure the PublicationYear in the Books table is not beyond 2024. Since SQLite doesn't support adding constraints with ALTER TABLE, we'll create a new table with the constraint and replace the old one.</p>
     <ul>
         <li>Click on the "Execute SQL" tab</li>
         <li>Use the following SQL commands to create a new Books table with the constraint:</li>
@@ -267,7 +267,7 @@ VALUES ('Current Book', 2023, 1);</code></pre>
 CREATE TABLE Books_New (
     BookID INTEGER PRIMARY KEY AUTOINCREMENT,
     Title TEXT NOT NULL,
-    PublicationYear INTEGER CHECK (PublicationYear <= 2099),
+    PublicationYear INTEGER CHECK (PublicationYear <= 2024),
     AuthorID INTEGER,
     FOREIGN KEY (AuthorID) REFERENCES Authors(AuthorID)
 );
@@ -292,13 +292,13 @@ ALTER TABLE Books_New RENAME TO Books;</code></pre>
         <li>Click the "Execute SQL" button</li>
         <li>Click the "Write Changes" button to save this modification to your database</li>
     </ul>
-    <p>To test the constraint, try inserting a book with a year beyond 2099:</p>
+    <p>To test the constraint, try inserting a book with a year beyond 2024:</p>
     <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
 VALUES ('Far Future Book', 2100, 1);</code></pre>
     <p>This should fail due to the CHECK constraint.</p>
     <p>Now try inserting a book with a valid year:</p>
     <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
-VALUES ('Future Book', 2099, 1);</code></pre>
+VALUES ('Future Book', 2024, 1);</code></pre>
     <p>This should succeed.</p>
     <p>And of course, current and past years should also work:</p>
     <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
