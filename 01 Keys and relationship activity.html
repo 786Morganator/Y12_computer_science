@@ -104,24 +104,7 @@
 );</code></pre>
     </div>
 
- <div class="task">
-        <h3>2. Create tables</h3>
-        <!-- Previous instructions remain the same -->
 
-        <h4>Authors Table</h4>
-        <!-- Authors table creation remains the same -->
-
-        <h4>Books Table</h4>
-        <pre><code>CREATE TABLE Books (
-    BookID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Title TEXT NOT NULL,
-    PublicationYear INTEGER CHECK (PublicationYear <= 2024),
-    AuthorID INTEGER,
-    FOREIGN KEY (AuthorID) REFERENCES Authors(AuthorID)
-);</code></pre>
-
-        <!-- Patrons and Loans table creation remain the same -->
-    </div>
     
     <h2>Tasks</h2>
     <div class="task">
