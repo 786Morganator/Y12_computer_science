@@ -257,7 +257,7 @@ VALUES ('Current Book', 2023, 1);</code></pre>
 </div>
 
     <div class="task">
-    <h2>4. Add a CHECK constraint</h2>
+    <h2>5. Add a CHECK constraint</h2>
     <p>We'll add a CHECK constraint to ensure the PublicationYear in the Books table is not beyond 2024. Since SQLite doesn't support adding constraints with ALTER TABLE, we'll create a new table with the constraint and replace the old one.</p>
     <ul>
         <li>Click on the "Execute SQL" tab</li>
@@ -294,7 +294,7 @@ ALTER TABLE Books_New RENAME TO Books;</code></pre>
     </ul>
     <p>To test the constraint, try inserting a book with a year beyond 2024:</p>
     <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
-VALUES ('Far Future Book', 2100, 1);</code></pre>
+VALUES ('Far Future Book', 2025, 1);</code></pre>
     <p>This should fail due to the CHECK constraint.</p>
     <p>Now try inserting a book with a valid year:</p>
     <pre><code>INSERT INTO Books (Title, PublicationYear, AuthorID)
