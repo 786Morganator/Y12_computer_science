@@ -209,14 +209,14 @@ VALUES ('Current Book', 2023, 1);</code></pre>
 </div>
 
 <div class="task">
-    <h2>4. Add a CHECK constraint</h2>
-    <p>We'll add a CHECK constraint to ensure the PublicationYear in the Books table is not beyond 2024. We'll recreate the table with the constraint, working within the existing transaction.</p>
+    <h2>5. Add a CHECK constraint</h2>
+    <p>We'll add a CHECK constraint to ensure the PublicationYear in the Books table is not beyond 2024. We'll do this by creating a new table, transferring the data, and then using the new table to replace the old one while preserving foreign key relationships.</p>
     <ul>
         <li>Click on the "Execute SQL" tab</li>
-        <li>Use the following SQL commands to recreate the Books table with the constraint:</li>
+        <li>Use the following SQL commands to update the Books table with the constraint:</li>
     </ul>
-    <pre><code>-- Create a temporary table with the new structure
-CREATE TABLE Books_temp (
+    <pre><code>-- Create a new table with the desired structure and constraint
+CREATE TABLE Books_new (
     BookID INTEGER PRIMARY KEY AUTOINCREMENT,
     Title TEXT NOT NULL,
     PublicationYear INTEGER CHECK (PublicationYear <= 2024),
@@ -225,7 +225,7 @@ CREATE TABLE Books_temp (
 );
 
 -- Copy data from the old table to the new one, adjusting any years beyond 2024
-INSERT INTO Books_temp (BookID, Title, PublicationYear, AuthorID)
+INSERT INTO Books_new (BookID, Title, PublicationYear, AuthorID)
 SELECT 
     BookID, 
     Title, 
@@ -236,19 +236,17 @@ SELECT
     AuthorID
 FROM Books;
 
--- Drop the old table
-DROP TABLE Books;
-
--- Rename the new table to the original name
-ALTER TABLE Books_temp RENAME TO Books;
+-- Drop the old table and rename the new one
+DROP TABLE IF EXISTS Books;
+ALTER TABLE Books_new RENAME TO Books;
 
 -- Optional: Display any books that had their publication year adjusted
 SELECT * FROM Books WHERE PublicationYear = 2024;</code></pre>
     <p>Let's break down these commands:</p>
     <ul>
-        <li>We create a new temporary table with the desired structure and constraint (PublicationYear <= 2024).</li>
+        <li>We create a new table with the desired structure and constraint (PublicationYear <= 2024).</li>
         <li>We copy data from the old table, adjusting any years beyond 2024 to be exactly 2024.</li>
-        <li>We drop the old table and rename the new one to 'Books'.</li>
+        <li>We drop the old table (if it exists) and rename the new one to 'Books'.</li>
         <li>Optionally, we display any books that now have 2024 as their publication year.</li>
     </ul>
     <ul>
