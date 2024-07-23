@@ -59,7 +59,7 @@
     <h2>Instructions</h2>
 
     <div class="task">
-        <h3>2. Create tables</h3>
+        <h3>1. Create tables</h3>
         <p>For each table:</p>
         <ol>
             <li>Click on the "Execute SQL" tab</li>
@@ -103,30 +103,73 @@
     FOREIGN KEY (PatronID) REFERENCES Patrons(PatronID)
 );</code></pre>
     </div>
-
-
     
     <h2>Tasks</h2>
-    <div class="task">
-        <h3>3. Insert sample data</h3>
-        <ol>
-            <li>Click on the "Execute SQL" tab</li>
-            <li>Write INSERT statements to add at least 3 records to each table</li>
-            <li>Click the "Execute SQL" button after each INSERT statement or group of statements</li>
-            <li>After inserting data into each table, click the "Write Changes" button</li>
-        </ol>
-    </div>
+    
+<div class="task">
+    <h3>2. Insert sample data</h3>
+    <ol>
+        <li>Click on the "Execute SQL" tab</li>
+        <li>Write INSERT statements to add at least 3 records to each table
+            <details>
+                <summary>➡️ Click for sample INSERT statements</summary>
+                <pre><code>-- Authors table
+INSERT INTO Authors (FirstName, LastName) VALUES
+('Jane', 'Austen'),
+('George', 'Orwell'),
+('J.K.', 'Rowling');
 
-    <div class="task">
-        <h3>2. Write and execute queries</h3>
-        <ol>
-            <li>Click on the "Execute SQL" tab</li>
-            <li>Write a query to display all books with their authors' names</li>
-            <li>Click the "Execute SQL" button and view the results</li>
-            <li>Write a query to show all active loans (where ReturnDate is NULL) with book titles and patron names</li>
-            <li>Click the "Execute SQL" button and view the results</li>
-        </ol>
-    </div>
+-- Books table
+INSERT INTO Books (Title, PublicationYear, AuthorID) VALUES
+('Pride and Prejudice', 1813, 1),
+('1984', 1949, 2),
+('Harry Potter and the Philosopher''s Stone', 1997, 3);
+
+-- Patrons table
+INSERT INTO Patrons (FirstName, LastName, Email) VALUES
+('John', 'Doe', 'john.doe@email.com'),
+('Emma', 'Smith', 'emma.smith@email.com'),
+('Michael', 'Johnson', 'michael.johnson@email.com');
+
+-- Loans table
+INSERT INTO Loans (BookID, PatronID, LoanDate, ReturnDate) VALUES
+(1, 1, '2023-07-01', '2023-07-15'),
+(2, 2, '2023-07-05', NULL),
+(3, 3, '2023-06-28', NULL);</code></pre>
+            </details>
+        </li>
+        <li>Click the "Execute SQL" button after each INSERT statement or group of statements</li>
+        <li>After inserting data into each table, click the "Write Changes" button</li>
+    </ol>
+</div>
+
+<div class="task">
+    <h3>3. Write and execute queries</h3>
+    <ol>
+        <li>Click on the "Execute SQL" tab</li>
+        <li>Write a query to display all books with their authors' names
+            <details>
+                <summary>🔍 Click to reveal solution</summary>
+                <pre><code>SELECT Books.Title, Authors.FirstName, Authors.LastName
+FROM Books
+JOIN Authors ON Books.AuthorID = Authors.AuthorID;</code></pre>
+            </details>
+        </li>
+        <li>Click the "Execute SQL" button and view the results</li>
+        <li>Write a query to show all active loans (where ReturnDate is NULL) with book titles and patron names
+            <details>
+                <summary>🔍 Click to reveal solution</summary>
+                <pre><code>SELECT Books.Title, Patrons.FirstName, Patrons.LastName, Loans.LoanDate
+FROM Loans
+JOIN Books ON Loans.BookID = Books.BookID
+JOIN Patrons ON Loans.PatronID = Patrons.PatronID
+WHERE Loans.ReturnDate IS NULL;</code></pre>
+            </details>
+        </li>
+        <li>Click the "Execute SQL" button and view the results</li>
+    </ol>
+</div>
+    
     <div class="task">
         <h3>4. Test the CHECK constraint</h3>
         <p>Let's test the CHECK constraint we added to the Books table:</p>
@@ -150,7 +193,7 @@ VALUES ('Old Book', 2000, 1);</code></pre>
         </ol>
     </div>
     <div class="task">
-        <h3>4. Create an index</h3>
+        <h3>5. Create an index</h3>
         <p>An index helps to speed up searches on a specific column. We'll create an index on the Email column in the Patrons table.</p>
         <ol>
             <li>Click on the "Execute SQL" tab</li>
@@ -179,7 +222,7 @@ VALUES ('Old Book', 2000, 1);</code></pre>
     </div>
 
     <div class="task">
-        <h3>5. Alternative: Using Triggers for Constraints</h3>
+        <h3>6. Alternative: Using Triggers for Constraints</h3>
         <p>While we've used a CHECK constraint in this example, it's worth noting that you can also use triggers to enforce similar rules. Triggers can provide more flexibility and allow for more complex logic. Here's an example of how you could implement the same constraint using a trigger:</p>
         <pre><code>CREATE TRIGGER check_publication_year
 BEFORE INSERT ON Books
