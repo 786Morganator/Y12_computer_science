@@ -1,0 +1,448 @@
+<!DOCTYPE html><html><head><base href="https://yassin-horizons-49mzp7r.gamma.site/">
+<title>Yassin Horizons - Empowering Malaysian Students in Perth</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+  }
+  .container {
+    width: 85%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px;
+  }
+  header {
+    background: linear-gradient(135deg, #35a79c, #54e2d2);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  header a {
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+  }
+  header ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+  }
+  header li {
+    display: inline;
+    padding: 0 20px;
+  }
+  header #branding {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  header #branding h1 {
+    margin: 0;
+    font-size: 2.5rem;
+  }
+  header nav {
+    display: flex;
+    justify-content: center;
+  }
+  header .highlight, header .current a {
+    color: #ffd700;
+    font-weight: bold;
+  }
+  header a:hover {
+    color: #ffd700;
+    transition: 0.3s;
+  }
+  #showcase {
+    min-height: 400px;
+    background: url('https://images.unsplash.com/photo-1589097202550-3e8be09ec80d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8UGVydGgsQXVzdHJhbGlhfHx8fHx8MTY4NjY4NzYwNA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080') no-repeat center center/cover;
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  #showcase::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+  }
+  #showcase * {
+    z-index: 2;
+  }
+  #showcase h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+  #showcase p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .btn {
+    display: inline-block;
+    background: #35a79c;
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+  .btn:hover {
+    background: #54e2d2;
+  }
+  #features, #services, #about-us, #get-started, #contact, #volunteer, #donate {
+    padding: 3rem 0;
+  }
+  .feature-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .feature {
+    flex-basis: 30%;
+    text-align: center;
+    padding: 2rem;
+    background: #f4f4f4;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  .feature:hover {
+    transform: translateY(-5px);
+  }
+  .feature img {
+    width: 80px;
+    margin-bottom: 1rem;
+  }
+  footer {
+    padding: 2rem 0;
+    color: #ffffff;
+    background-color: #333;
+    text-align: center;
+  }
+  @media(max-width: 768px) {
+    .feature {
+      flex-basis: 100%;
+    }
+    header ul {
+      flex-direction: column;
+    }
+    header li {
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  /* New styles to make each section distinct */
+  #features {
+    background-color: #f0f8ff; /* Alice Blue */
+  }
+  #about-us {
+    background-color: #e6f2ff; /* Lighter Blue */
+  }
+  #services {
+    background-color: #d9e6f2; /* Light Steel Blue */
+  }
+  #get-started {
+    background-color: #ccf2ff; /* Light Cyan */
+  }
+  #contact {
+    background-color: #e6fffa; /* Light Turquoise */
+  }
+  #volunteer {
+    background-color: #f0fff0; /* Honeydew */
+  }
+  #donate {
+    background-color: #fff0f5; /* Lavender Blush */
+  }
+  
+  /* Add some padding and border to each section */
+  section {
+    padding: 40px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Add some box shadow to make sections pop */
+  section .container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 30px;
+  }
+  
+  /* Improve typography */
+  h2 {
+    color: #35a79c;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Add some hover effects to buttons */
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div id="branding">
+        <h1><span class="highlight">Yassin</span> Horizons</h1>
+      </div>
+      <nav>
+        <ul>
+          <li class="current"><a href="#home">Home</a></li>
+          <li><a href="#about-us">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="showcase">
+    <div class="container">
+      <h1 style="color: #ffd700;">Empowering Malaysian Students in Perth</h1>
+      <p>Supporting your academic and cultural journey in Australia</p>
+      <a href="#get-started" class="btn">Get Started</a>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="container">
+      <h2>Our Features</h2>
+      <div class="feature-container">
+        <div class="feature">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cGF0aCBmaWxsPSIjMzVhNzljIiBkPSJNMzIgMmM4LjgzNyAwIDE2IDcuMTY0IDE2IDE2cy03LjE2MyAxNi0xNiAxNlMxNiAyNi44MzcgMTYgMThTMjMuMTYzIDIgMzIgMm0wLTJDMjIuMDU5IDAgMTQgOC4wNTkgMTQgMThzOC4wNTkgMTggMTggMTggMTgtOC4wNTkgMTgtMThTNDEuOTQxIDAgMzIgMHpNMjAgNTVjMC03LjE4IDYtMTMgMTMtMTNoMTBjNyAwIDEzIDUuODIgMTMgMTN2N0gyMHYtN3ptLTItMWMwIDguMjg0IDYuNzE2IDE1IDE1IDE1aDE4YzguMjg0IDAgMTUtNi43MTYgMTUtMTV2LTZjMC04LjI4NC02LjcxNi0xNS0xNS0xNUgzM2MtOC4yODQgMC0xNSA2LjcxNi0xNSAxNXY2eiIvPjwvc3ZnPg==" alt="Cultural Support Icon">
+          <h3>Cultural Support</h3>
+          <p>Guidance on cultural acclimation in Perth for a smooth transition.</p>
+        </div>
+        <div class="feature">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cGF0aCBmaWxsPSIjMzVhNzljIiBkPSJNNTIgMEgxMkM1LjM3MyAwIDAgNS4zNzMgMCAxMnY0MGMwIDYuNjI3IDUuMzczIDEyIDEyIDEyaDQwYzYuNjI3IDAgMTItNS4zNzMgMTItMTJWMTJjMC02LjYyNy01LjM3My0xMi0xMi0xMnptLTQgNDRIMTZjLTIuMjA5IDAtNC0xLjc5MS00LTRWMjRjMC0yLjIwOSAxLjc5MS00IDQtNGgzMmMyLjIwOSAwIDQgMS43OTEgNCA0djE2YzAgMi4yMDktMS43OTEgNC00IDR6Ii8+PHBhdGggZmlsbD0iIzM1YTc5YyIgZD0iTTI0IDI4aDR2MTJoLTR6TTMyIDI0aDR2MTZoLTR6TTQwIDMyaDR2OGgtNHoiLz48L3N2Zz4=" alt="Academic Success Icon">
+          <h3>Academic Success</h3>
+          <p>Mentorship, resources, and community support for academic excellence.</p>
+        </div>
+        <div class="feature">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cGF0aCBmaWxsPSIjMzVhNzljIiBkPSJNMzIgMEMxNC4zMjcgMCAwIDE0LjMyNyAwIDMyYzAgMTcuNjczIDE0LjMyNyAzMiAzMiAzMiAxNy42NzMgMCAzMi0xNC4zMjcgMzItMzJDNjQgMTQuMzI3IDQ5LjY3MyAwIDMyIDB6TTIwIDQ4Yy00LjQxOCAwLTgtMy41ODItOC04czMuNTgyLTggOC04IDggMy41ODIgOCA4LTMuNTgyIDgtOCA4em0yNC0xNmMtNC40MTggMC04LTMuNTgyLTgtOHMzLjU4Mi04IDgtOCA4IDMuNTgyIDggOC0zLjU4MiA4LTggOHptLTggMjRjLTQuNDE4IDAtOC0zLjU4Mi04LThzMy41ODItOCA4LTggOCAzLjU4MiA4IDgtMy41ODIgOC04IDh6Ii8+PC9zdmc+" alt="Fostering Connections Icon">
+          <h3>Fostering Connections</h3>
+          <p>Building meaningful relationships within the local community.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about-us">
+    <div class="container">
+      <h2>About Us</h2>
+      <p>Yassin Horizons is a newly established organization dedicated to supporting Malaysian students in Perth, Australia. Founded in 2023 by Siti Yassin, we are in our nascent form but driven by a strong vision to create a bridge between cultures and foster academic excellence. Our mission is to provide comprehensive support to Malaysian students throughout their educational journey in Perth.</p>
+      
+      <h3>Our Story</h3>
+      <p>Yassin Horizons was born from the personal experiences and passion of our founder, Siti Yassin. Recognizing the challenges faced by Malaysian students studying abroad, Siti envisioned a support system that could make their transition and stay in Perth smoother and more enriching. Though we are just beginning our journey, we are committed to growing into a robust support network for the Malaysian student community in Perth.</p>
+      
+      <h3>Our Team</h3>
+      <p>As a new organization, our team is small but dedicated. Led by Siti Yassin, we are actively recruiting experienced educators, cultural ambassadors, and student mentors who share our vision. We are committed to building a diverse team that can address the unique needs of Malaysian students in Australia.</p>
+      
+      <h3>Our Values</h3>
+      <ul>
+        <li><strong>Empowerment:</strong> We believe in empowering students to reach their full potential.</li>
+        <li><strong>Inclusivity:</strong> We are building an inclusive environment that celebrates diversity.</li>
+        <li><strong>Excellence:</strong> We strive for excellence in all our programs and services.</li>
+        <li><strong>Community:</strong> We aim to build strong, supportive communities that last beyond university years.</li>
+      </ul>
+      
+      <h3>Our Vision for Impact</h3>
+      <p>While we are just starting out, our goal is to make a significant impact on the lives of Malaysian students in Perth. We envision supporting hundreds of students in the coming years, helping them navigate their academic journey, cultural transition, and personal growth. We look forward to seeing our future alumni succeed in their careers and give back to our growing community.</p>
+      
+      <h3>Join Our Growing Community</h3>
+      <p>As a new organization, we are eager to welcome students, mentors, and community members who are interested in our cause. Whether you're a student seeking support, a professional looking to mentor, or a community member interested in contributing to our growth, we invite you to be part of the Yassin Horizons family from its early stages.</p>
+      <a href="#volunteer" class="btn">Join Yassin Horizons</a>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h2>Our Services</h2>
+      <p>At Yassin Horizons, we offer a comprehensive range of services designed to support Malaysian students throughout their academic journey in Perth, Australia. Our goal is to ensure that every student has the resources and support they need to thrive both academically and personally.</p>
+
+      <h3>Cultural Adaptation Support</h3>
+      <p>We understand that adjusting to a new culture can be challenging. Our cultural adaptation support services include:</p>
+      <ul>
+        <li>Pre-departure orientation sessions</li>
+        <li>Welcome programs upon arrival in Perth</li>
+        <li>Cultural awareness workshops</li>
+        <li>One-on-one cultural mentoring</li>
+      </ul>
+
+      <h3>Academic Excellence Program</h3>
+      <p>Our academic support services are designed to help you achieve your full potential:</p>
+      <ul>
+        <li>Study skills workshops</li>
+        <li>Subject-specific tutoring</li>
+        <li>Academic writing support</li>
+        <li>Exam preparation assistance</li>
+      </ul>
+
+      <h3>Career Development</h3>
+      <p>We help prepare you for your future career:</p>
+      <ul>
+        <li>Resume and cover letter writing workshops</li>
+        <li>Interview skills training</li>
+        <li>Networking events with local businesses</li>
+        <li>Internship placement assistance</li>
+      </ul>
+
+      <h3>Social Integration</h3>
+      <p>Building a supportive community is crucial for your success and well-being:</p>
+      <ul>
+        <li>Regular social events and outings</li>
+        <li>Cultural exchange programs</li>
+        <li>Volunteer opportunities in the local community</li>
+        <li>Sports and recreational activities</li>
+      </ul>
+
+      <h3>Mental Health and Wellness</h3>
+      <p>We prioritize your mental health and overall well-being:</p>
+      <ul>
+        <li>Counseling services</li>
+        <li>Stress management workshops</li>
+        <li>Mindfulness and meditation sessions</li>
+        <li>Access to mental health resources</li>
+      </ul>
+
+      <p>Our services are designed to be comprehensive and adaptable to your individual needs. We're committed to supporting you every step of the way during your time in Perth.</p>
+    </div>
+  </section>
+
+  <section id="get-started">
+    <div class="container">
+      <h2>Get Started with Yassin Horizons</h2>
+      <p>Ready to begin your journey with us? Here's how you can get started:</p>
+      <ol>
+        <li>Fill out our online registration form</li>
+        <li>Schedule an initial consultation with our team</li>
+        <li>Attend our welcome orientation</li>
+        <li>Start accessing our services and resources</li>
+      </ol>
+      <p>Don't wait to get the support you need. Start your journey with Yassin Horizons today!</p>
+      <a href="#contact" class="btn">Contact Us to Get Started</a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>We're here to answer your questions and provide support. Get in touch with us:</p>
+      <ul>
+        <li>Email: suriayaini.yassin@gmail.com</li>
+        <li>Phone: Coming soon</li>
+        <li>Address: Rostrata, Willetton, 6155</li>
+      </ul>
+      <p>Or fill out our contact form:</p>
+      <form action="#" method="POST" style="display: flex; flex-direction: column; max-width: 500px; margin: 0 auto;">
+        <input type="text" name="name" placeholder="Your Name" required="" style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <input type="email" name="email" placeholder="Your Email" required="" style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <textarea name="message" placeholder="Your Message" required="" style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; min-height: 100px;"></textarea>
+        <button type="submit" class="btn" style="align-self: flex-start;">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="volunteer">
+    <div class="container">
+      <h2>Volunteer with Us</h2>
+      <p>Join our team of dedicated volunteers and make a difference in the lives of Malaysian students in Perth. We have various volunteering opportunities:</p>
+      <ul>
+        <li>Mentor a student</li>
+        <li>Teach English or other subjects</li>
+        <li>Help organize cultural events</li>
+        <li>Assist with administrative tasks</li>
+      </ul>
+      <p>To volunteer, please fill out our volunteer application form:</p>
+      <form action="#" method="POST" style="max-width: 500px; margin: 0 auto;">
+        <input type="text" name="name" placeholder="Your Name" required="" style="display: block; width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <input type="email" name="email" placeholder="Your Email" required="" style="display: block; width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <textarea name="why_volunteer" placeholder="Why do you want to volunteer?" required="" style="display: block; width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; min-height: 100px;"></textarea>
+        <button type="submit" class="btn" style="display: block; width: 100%;">Apply to Volunteer</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="donate">
+    <div class="container">
+      <h2>Donate to Our Cause</h2>
+      <p>Your donation can make a significant impact on the lives of Malaysian students in Perth. Here's how your contribution can help:</p>
+      <ul>
+        <li>$50 can provide study materials for a student</li>
+        <li>$100 can fund a cultural adaptation workshop</li>
+        <li>$500 can sponsor a student's academic mentoring for a semester</li>
+      </ul>
+      <p>To make a donation, please use our secure online donation form:</p>
+      <form action="#" method="POST" style="max-width: 500px; margin: 0 auto;">
+        <input type="text" name="name" placeholder="Your Name" required="" style="display: block; width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <input type="email" name="email" placeholder="Your Email" required="" style="display: block; width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <input type="number" name="amount" placeholder="Donation Amount (AUD)" required="" style="display: block; width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <button type="submit" class="btn" style="display: block; width: 100%;">Donate Now</button>
+      </form>
+      <p>Thank you for your generosity and support!</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Yassin Horizons © 2024 | Empowering Malaysian Students in Perth</p>
+  </footer>
+
+  <script>
+    // Add smooth scrolling to all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add animation to features on scroll
+    const features = document.querySelectorAll('.feature');
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    features.forEach(feature => {
+      feature.style.opacity = 0;
+      feature.style.transform = 'translateY(50px)';
+      feature.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(feature);
+    });
+  </script>
+</body></html>
