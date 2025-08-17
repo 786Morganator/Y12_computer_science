@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoTutorial</title>
+    <!-- Load Tailwind CSS for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            height: auto;
+            overflow-y: hidden;
+            font-family: monospace;
+            margin-bottom: 10px;
+            /* New styles to make the textarea more distinct */
+            border: 1px solid #9ca3af; /* A slightly darker gray border */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* A subtle shadow */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-10 rounded-xl shadow-lg">
+        <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-2">SQL Query Quiz</h1>
+        <p class="text-center text-gray-500 mb-8">Test your knowledge of SQL with this interactive quiz.</p>
+
+        <!-- New section for DB setup - Create Tables -->
+        <div class="setup-section bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
+            <h2 class="text-xl sm:text-2xl font-semibold text-gray-700 mb-4">Step 1: Create Tables</h2>
+            <p class="text-gray-600 mb-4">
+                First, write the SQL script to create the `authors` and `books` tables. Then check your answer.
+            </p>
+            <p class="text-gray-600 mb-2"><strong>Table Specifications:</strong></p>
+            <ul class="list-disc list-inside text-gray-600 space-y-1 mb-4">
+                <li><strong><code>authors</code>:</strong>
+                    <ul>
+                        <li><code class="font-bold">id</code>: Primary key, integer.</li>
+                        <li><code class="font-bold">name</code>: Author's name, text.</li>
+                    </ul>
+                </li>
+                <li><strong><code>books</code>:</strong>
+                    <ul>
+                        <li><code class="font-bold">id</code>: Primary key, integer.</li>
+                        <li><code class="font-bold">title</code>: Book title, text.</li>
+                        <li><code class="font-bold">author_id</code>: Links to the author's id, integer.</li>
+                        <li><code class="font-bold">genre</code>: Book genre, text.</li>
+                        <li><code class="font-bold">published_year</code>: Year of publication, integer.</li>
+                        <li><code class="font-bold">page_count</code>: Total pages, integer.</li>
+                    </ul>
+                </li>
+            </ul>
+             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <div class="flex-1">
+                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Your Answer</h4>
+                    <textarea id="create-sql-input" placeholder="Write your CREATE script here"></textarea>
+                </div>
+                <div id="create-comparison-container" class="flex-1 hidden">
+                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Correct Answer</h4>
+                    <textarea id="correct-create-sql-input" class="p-4 border border-gray-300 rounded-lg focus:outline-none bg-gray-200" readonly></textarea>
+                </div>
+            </div>
+            <div class="flex space-x-4 mb-4 mt-2">
+                <button onclick="checkCreateSolution()" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Check Answer
+                </button>
+                <button onclick="revealCreateSolution()" class="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors">
+                    Reveal Full Answer
+                </button>
+            </div>
+            <div id="create-feedback" class="text-sm font-medium mt-2"></div>
+        </div>
+
+        <!-- The main quiz section -->
+        <div class="intro bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
+          <h2 class="text-xl sm:text-2xl font-semibold text-gray-700 mb-4">Step 2: Populate Tables</h2>
+            <p class="text-gray-600 mb-2">
+              Create the insert tables for the data below in the provide textbox below these tables and check your answer.
+          </p>
+            <div id="table-display-container" class="space-y-8">
+                <!-- Tables will be loaded here by JavaScript -->
+                <div id="loading-message" class="text-center text-blue-500 font-medium my-4">
+                    <svg class="animate-spin h-6 w-6 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Loading database...
+              </div>
+          </div>
+            <div class="setup-section bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8 mt-4">
+            <p class="text-gray-600 mb-4">
+              Create the SQLite code in the box below for the table data above. After you have validated your code is correct, implement the table creation and data insertion in DB Browser.
+          </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <div class="flex-1">
+                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Your Answer</h4>
+                    <textarea id="insert-sql-input" placeholder="Write your INSERT script here"></textarea>
+              </div>
+                <div id="insert-comparison-container" class="flex-1 hidden">
+                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Correct Answer</h4>
+                    <textarea id="correct-insert-sql-input" class="p-4 border border-gray-300 rounded-lg focus:outline-none bg-gray-200" readonly></textarea>
+                </div>
+            </div>
+            <div class="flex space-x-4 mb-4 mt-2">
+                <button onclick="checkInsertSolution()" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Check Answer
+                </button>
+                <button onclick="revealInsertSolution()" class="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors">
+                    Reveal Full Answer
+                </button>
+            </div>
+            <div id="insert-feedback" class="text-sm font-medium mt-2"></div>
+        </div>
+
+        <div id="quiz" class="space-y-6"></div>
+
+    </div>
+
+    <!--
+        Load the sql.js library from a CDN
+        The library is used to run an SQLite database entirely within the browser
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/sql.js/dist/sql-wasm.js"></script>
+
+    <script type="module">
+        const SQL_CREATE_SCRIPT = `
+-- Create the authors table
+CREATE TABLE IF NOT EXISTS authors (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+-- Create the books table
+CREATE TABLE IF NOT EXISTS books (
+    id INTEGER PRIMARY KEY,
+    title TEXT NOT NULL,
+    author_id INTEGER,
+    genre TEXT NOT NULL,
+    published_year INTEGER,
+    page_count INTEGER,
+    FOREIGN KEY (author_id) REFERENCES authors(id)
+);
+`;
+
+        const SQL_INSERT_SCRIPT = `
+-- Insert sample data into authors
+INSERT INTO authors (id, name) VALUES
+    (1, 'George Orwell'),
+    (2, 'Harper Lee'),
+    (3, 'Jane Austen'),
+    (4, 'J.R.R. Tolkien'),
+    (5, 'Dan Brown');
+
+-- Insert sample data into books
+INSERT INTO books (id, title, author_id, genre, published_year, page_count) VALUES
+    (1, '1984', 1, 'Dystopian Fiction', 1949, 328),
+    (2, 'Animal Farm', 1, 'Political Satire', 1945, 112),
+    (3, 'Homage to Catalonia', 1, 'Memoir', 1938, 288),
+    (4, 'To Kill a Mockingbird', 2, 'Fiction', 1960, 281),
+    (5, 'Go Set a Watchman', 2, 'Fiction', 2015, 278),
+    (6, 'Pride and Prejudice', 3, 'Romance', 1813, 432),
+    (7, 'Sense and Sensibility', 3, 'Romance', 1811, 384),
+    (8, 'Emma', 3, 'Romance', 1815, 474),
+    (9, 'The Lord of the Rings', 4, 'Fantasy', 1954, 1178),
+    (10, 'The Hobbit', 4, 'Fantasy', 1937, 310),
+    (11, 'The Silmarillion', 4, 'Fantasy', 1977, 365),
+    (12, 'The Da Vinci Code', 5, 'Thriller', 2003, 489),
+    (13, 'Angels & Demons', 5, 'Thriller', 2000, 736);
+`;
+
+        const questions = [
+            {
+                question: "How many books has each author written? **Use `book_count` as the alias for the count.**",
+                answer: `SELECT authors.name, COUNT(books.id) AS book_count
+FROM authors
+LEFT JOIN books ON authors.id = books.author_id
+GROUP BY authors.name;`
+            },
+            {
+                question: "What is the average publication year and page count of books for each genre? **Use `avg_pub_year` and `avg_page_count` as the aliases.**",
+                answer: `SELECT genre, AVG(published_year) AS avg_pub_year, AVG(page_count) AS avg_page_count
+FROM books
+GROUP BY genre;`
+            },
+            {
+                question: "Which authors have written more than two books? **Use `book_count` as the alias for the count.**",
+                answer: `SELECT authors.name, COUNT(books.id) AS book_count
+FROM authors
+JOIN books ON authors.id = books.author_id
+GROUP BY authors.name
+HAVING COUNT(books.id) > 2;`
+            },
+            {
+                question: "What are the earliest and latest publication years of books in our database? **Use `earliest_year` and `latest_year` as the aliases.**",
+                answer: `SELECT MIN(published_year) AS earliest_year, MAX(published_year) AS latest_year
+FROM books;`
+            }
+        ];
+
+        let db = null;
+        let SQL = null;
+
+        async function initializeDatabase() {
+            const loadingMessage = document.getElementById('loading-message');
+            try {
+                SQL = await initSqlJs({
+                    locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js/dist/${file}`
+                });
+                db = new SQL.Database();
+                db.exec(SQL_CREATE_SCRIPT);
+                db.exec(SQL_INSERT_SCRIPT);
+                console.log("Database initialized and populated.");
+                renderTablesToPage();
+
+            } catch (err) {
+                loadingMessage.textContent = `Error loading database: ${err.message}`;
+                loadingMessage.style.color = "red";
+                console.error("Error loading sql.js:", err);
+            }
+        }
+
+        function renderTablesToPage() {
+            const tableContainer = document.getElementById('table-display-container');
+            const loadingMessage = document.getElementById('loading-message');
+            const authorsHtml = renderTable("SELECT * FROM authors", "Authors Table");
+            const booksHtml = renderTable("SELECT * FROM books", "Books Table");
+            loadingMessage.style.display = 'none';
+            tableContainer.innerHTML = authorsHtml + booksHtml;
+        }
+
+        const renderTable = (query, title) => {
+            if (!db) return `<div class="text-center text-red-500">Database not initialized.</div>`;
+
+            try {
+                const res = db.exec(query);
+                if (res.length === 0) {
+                    return `<div class="text-center text-gray-500">No data found for ${title}.</div>`;
+                }
+
+                const tableData = res[0];
+                const columns = tableData.columns;
+                const values = tableData.values;
+
+                let html = `
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">${title}</h3>
+                    <div class="overflow-x-auto rounded-lg shadow-md mb-4">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    ${columns.map(col => `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${col}</th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                ${values.map(row => `
+                                    <tr>
+                                        ${row.map(cell => `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${cell}</td>`).join('')}
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                return html;
+            } catch (err) {
+                return `<div class="text-center text-red-500 font-medium mt-4">Error rendering ${title}: ${err.message}</div>`;
+            }
+        };
+        
+        // checkCreateSolution and revealCreateSolution functions
+        window.checkCreateSolution = function() {
+            const createInput = document.getElementById('create-sql-input');
+            const feedbackElement = document.getElementById('create-feedback');
+            const userScript = createInput.value;
+            
+            try {
+                const checkDb = new SQL.Database();
+                checkDb.exec(userScript);
+                
+                const userAuthors = checkDb.exec("SELECT * FROM authors;");
+                const userBooks = checkDb.exec("SELECT * FROM books;");
+                
+                const correctDb = new SQL.Database();
+                correctDb.exec(SQL_CREATE_SCRIPT);
+
+                const correctAuthors = correctDb.exec("SELECT * FROM authors;");
+                const correctBooks = correctDb.exec("SELECT * FROM books;");
+
+                const areAuthorsEqual = JSON.stringify(userAuthors) === JSON.stringify(correctAuthors);
+                const areBooksEqual = JSON.stringify(userBooks) === JSON.stringify(correctBooks);
+
+                if (areAuthorsEqual && areBooksEqual) {
+                     feedbackElement.textContent = "Correct! 🎉 Your table schemas match the solution.";
+                     feedbackElement.style.color = "green";
+                } else {
+                     feedbackElement.textContent = "Not quite right. The output of your script does not match the expected result. Please review the table specifications or reveal the solution.";
+                     feedbackElement.style.color = "red";
+                }
+
+                checkDb.close();
+                correctDb.close();
+
+            } catch (err) {
+                feedbackElement.textContent = `Error in query: ${err.message}`;
+                feedbackElement.style.color = "red";
+                console.error("Query execution error:", err);
+            }
+        };
+
+        window.revealCreateSolution = function() {
+            const createTextarea = document.getElementById('create-sql-input');
+            const correctCreateTextarea = document.getElementById('correct-create-sql-input');
+            const comparisonContainer = document.getElementById('create-comparison-container');
+            
+            if (comparisonContainer.classList.contains('hidden')) {
+                comparisonContainer.classList.remove('hidden');
+            } else {
+                comparisonContainer.classList.add('hidden');
+            }
+            
+            correctCreateTextarea.value = SQL_CREATE_SCRIPT.trim();
+            
+            correctCreateTextarea.style.height = 'auto';
+            const correctHeight = correctCreateTextarea.scrollHeight + 'px';
+            correctCreateTextarea.style.height = correctHeight;
+            createTextarea.style.height = correctHeight;
+        };
+
+        // checkInsertSolution and revealInsertSolution functions
+        window.checkInsertSolution = function() {
+            const insertInput = document.getElementById('insert-sql-input');
+            const feedbackElement = document.getElementById('insert-feedback');
+            const userScript = insertInput.value;
+            
+            try {
+                const checkDb = new SQL.Database();
+                // We need to create the tables before inserting, as the user would in a real scenario
+                checkDb.exec(SQL_CREATE_SCRIPT);
+                checkDb.exec(userScript);
+
+                const userAuthors = checkDb.exec("SELECT * FROM authors;");
+                const userBooks = checkDb.exec("SELECT * FROM books;");
+                
+                const correctDb = new SQL.Database();
+                correctDb.exec(SQL_CREATE_SCRIPT);
+                correctDb.exec(SQL_INSERT_SCRIPT);
+
+                const correctAuthors = correctDb.exec("SELECT * FROM authors;");
+                const correctBooks = correctDb.exec("SELECT * FROM books;");
+
+                const areAuthorsEqual = JSON.stringify(userAuthors) === JSON.stringify(correctAuthors);
+                const areBooksEqual = JSON.stringify(userBooks) === JSON.stringify(correctBooks);
+
+                if (areAuthorsEqual && areBooksEqual) {
+                     feedbackElement.textContent = "Correct! 🎉 Your data insertion matches the solution.";
+                     feedbackElement.style.color = "green";
+                } else {
+                     feedbackElement.textContent = "Not quite right. The output of your script does not match the expected result. Please review your data or reveal the solution.";
+                     feedbackElement.style.color = "red";
+                }
+
+                checkDb.close();
+                correctDb.close();
+
+            } catch (err) {
+                feedbackElement.textContent = `Error in query: ${err.message}`;
+                feedbackElement.style.color = "red";
+                console.error("Query execution error:", err);
+            }
+        };
+
+        window.revealInsertSolution = function() {
+            const insertTextarea = document.getElementById('insert-sql-input');
+            const correctInsertTextarea = document.getElementById('correct-insert-sql-input');
+            const comparisonContainer = document.getElementById('insert-comparison-container');
+            
+            if (comparisonContainer.classList.contains('hidden')) {
+                comparisonContainer.classList.remove('hidden');
+            } else {
+                comparisonContainer.classList.add('hidden');
+            }
+            
+            correctInsertTextarea.value = SQL_INSERT_SCRIPT.trim();
+            
+            correctInsertTextarea.style.height = 'auto';
+            const correctHeight = correctInsertTextarea.scrollHeight + 'px';
+            correctInsertTextarea.style.height = correctHeight;
+            insertTextarea.style.height = correctHeight;
+        };
+        
+        window.checkAnswer = function(index) {
+            const userQuery = document.getElementById(`sql-input-${index}`).value;
+            const feedbackElement = document.getElementById(`feedback-${index}`);
+            const correctAnswer = questions[index].answer;
+
+            // Simple string comparison after normalizing whitespace
+            const normalizedUserAnswer = userQuery.trim().replace(/\s+/g, ' ').toLowerCase();
+            const normalizedCorrectAnswer = correctAnswer.trim().replace(/\s+/g, ' ').toLowerCase();
+
+            if (normalizedUserAnswer === normalizedCorrectAnswer) {
+                feedbackElement.textContent = "Correct! 🎉";
+                feedbackElement.style.color = "green";
+            } else {
+                feedbackElement.textContent = "Not quite right. The output of your query does not match the expected result. Please use the exact aliases as shown in the answer to get the correct output.";
+                feedbackElement.style.color = "red";
+            }
+        };
+
+        window.revealAnswer = function(index) {
+            const userTextarea = document.getElementById(`sql-input-${index}`);
+            const correctTextarea = document.getElementById(`correct-sql-input-${index}`);
+            const comparisonContainer = document.getElementById(`comparison-container-${index}`);
+            
+            // Toggle the visibility of the comparison container
+            if (comparisonContainer.classList.contains('hidden')) {
+                comparisonContainer.classList.remove('hidden');
+            } else {
+                comparisonContainer.classList.add('hidden');
+            }
+            
+            // Set the correct answer's value, keeping the user's input intact
+            correctTextarea.value = questions[index].answer.trim();
+            
+            // Set height to auto to get the correct scrollHeight, then apply it
+            correctTextarea.style.height = 'auto';
+            const correctHeight = correctTextarea.scrollHeight + 'px';
+            correctTextarea.style.height = correctHeight;
+            userTextarea.style.height = correctHeight;
+        }
+
+        const quizContainer = document.getElementById('quiz');
+        questions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8';
+            questionDiv.innerHTML = `
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">Question ${index + 1}:</h3>
+                <p class="text-gray-600 mb-4">${q.question}</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <div class="flex-1">
+                        <h4 class="text-sm font-semibold text-gray-700 mb-2">Your Answer</h4>
+                        <textarea id="sql-input-${index}" placeholder="Write your SQL query here. You may toggle on and off the 'Reveal Full Answer' to help you as needed. Don't forget to check the answer once you have attempted it. Ensure you use the alias' given above otherwise you will be marked incorrect"></textarea>
+                    </div>
+                    <div id="comparison-container-${index}" class="flex-1 hidden">
+                        <h4 class="text-sm font-semibold text-gray-700 mb-2">Correct Answer</h4>
+                        <textarea id="correct-sql-input-${index}" class="p-4 border border-gray-300 rounded-lg focus:outline-none bg-gray-200" readonly></textarea>
+                    </div>
+                </div>
+                <div class="flex space-x-4 mb-4 mt-2">
+                    <button onclick="checkAnswer(${index})" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                        Check Answer
+                    </button>
+                    <button onclick="revealAnswer(${index})" class="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors">
+                        Reveal Full Answer
+                    </button>
+                </div>
+                <div id="feedback-${index}" class="text-sm font-medium"></div>
+            `;
+            quizContainer.appendChild(questionDiv);
+        });
+
+        window.onload = initializeDatabase;
+    </script>
+</body>
+</html>
